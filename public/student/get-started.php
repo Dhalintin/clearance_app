@@ -1,14 +1,10 @@
 <?php
 
-use App\Actions\StudentActions;
-
 require_once "../../vendor/autoload.php";
 
 if (!checkStudentLogin()) {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $regNo = $_POST['regNo'];
-        $action = new StudentActions();
-        $action->login([]);
+    if ($_REQUEST['method'] === 'POST') {
+        $action = null;
     }
 ?>
     <!DOCTYPE html>
@@ -35,9 +31,15 @@ if (!checkStudentLogin()) {
                         <img src="/images/auth.png" class="img-fluid" alt="Sample image">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form method="POST" action="/student/login.php">
+                        <form>
                             <div class="flex-row d-flex align-items-center justify-content-center justify-content-lg-start">
-                                <h2 class="mb-4 me-3">Login</h2>
+                                <h2 class="mb-4 me-3">Get Started</h2>
+                            </div>
+
+                            <!-- Clearance Pin -->
+                            <div class="mb-4 form-outline">
+                                <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your clearance pin" />
+                                <label class="form-label" for="form3Example3">Clearance Pin</label>
                             </div>
 
                             <!-- RegNo -->
@@ -53,8 +55,8 @@ if (!checkStudentLogin()) {
                             </div>
 
                             <div class="pt-2 mt-4 text-center text-lg-start">
-                                <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                                <p class="pt-1 mt-2 mb-0 small fw-bold">Don't have an account? <a href="/student/get-started.php" class="link-danger">Register</a></p>
+                                <button type="button" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Get Started</button>
+                                <p class="pt-1 mt-2 mb-0 small fw-bold">Already have an account? <a href="/student/login.php" class="link-danger">login</a></p>
                             </div>
                         </form>
                     </div>

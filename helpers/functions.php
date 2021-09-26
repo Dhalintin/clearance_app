@@ -12,3 +12,13 @@ if (!function_exists('env')) {
         return $value;
     }
 }
+
+if (!function_exists('checkStudentLogin')) {
+    function checkStudentLogin()
+    {
+        if (isset($_SESSION['student'])) {
+            return true;
+        }
+        return false;
+    }
+}
