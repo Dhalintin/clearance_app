@@ -5,12 +5,14 @@ use App\Actions\StudentActions;
 require_once "../../vendor/autoload.php";
 
 if (!checkStudentLogin()) {
+    $errors = [];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $regNo = $_POST['regNo'];
+        $data = filter_input_array(INPUT_POST);
         $action = new StudentActions();
-        $action->login([]);
+        $action->login($data ?? ['regNo' => '', 'password' => '']);
+        $errors = $action->getErrors();
     }
-?>
+    ?>
     <!DOCTYPE html>
     <html>
 
@@ -40,21 +42,28 @@ if (!checkStudentLogin()) {
                                 <h2 class="mb-4 me-3">Login</h2>
                             </div>
 
+                            <?php foreach ($errors as $error): ?>
+                            <div class="text-danger mb-3">
+                                <?php echo $error; ?>
+                            </div>
+                            <?php endforeach ?>
                             <!-- RegNo -->
                             <div class="mb-4 form-outline">
-                                <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your REG NO." />
+                                <input type="text" name="regNo" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your REG NO." />
                                 <label class="form-label" for="form3Example3">REG NO.</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="mb-3 form-outline">
-                                <input type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
+                                <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
                                 <label class="form-label" for="form3Example4">Password</label>
                             </div>
 
                             <div class="pt-2 mt-4 text-center text-lg-start">
                                 <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                                <p class="pt-1 mt-2 mb-0 small fw-bold">Don't have an account? <a href="/student/get-started.php" class="link-danger">Register</a></p>
+                                <p class="pt-1 mt-2 mb-0 small fw-bold">
+                                    Don't have an account? <a href="/student/get-started.php" class="link-danger">Register</a>
+                                </p>
                             </div>
                         </form>
                     </div>
@@ -65,9 +74,9 @@ if (!checkStudentLogin()) {
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
     </body>
 
-    </html>
+</html>
 <?php
 } else {
-    header("Location: /student/dashboard.php");
-    exit();
+header("Location: /student/dashboard.php");
+exit();
 }

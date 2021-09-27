@@ -11,19 +11,38 @@ class StudentActions
     protected $errors = [];
     protected $table = "students";
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->db = new Database();
     }
 
-    public function getErrors()
-    {
+    public function getErrors() {
         return $this->errors;
     }
 
-    public function login(array $input)
-    {
+    public function register(array $input) {
+        if (empty($input['regNo']) || empty($input['password']) || empty($input['clearancePin'])) {
+            array_push($this->errors, "All fields are required");
+            return;
+        }
+
+        $existingStudent = $this->findByRegNo($input['regNo']);
+
+        if ($existingStudent) {
+            array_push($this->errors, "You have started clearance already!");
+            return;
+        }
+
+
+    }
+
+    public function login(array $input) {
+        if (empty($input['regNo']) || empty($input['password'])) {
+            array_push($this->errors, "All fields are required");
+            return;
+        }
+
         $student = $this->findByRegNo($input['regNo']);
+
         if ($student) {
             if (!password_verify($input['password'], $student->password)) {
                 array_push($this->errors, "Incorect details");
@@ -34,12 +53,10 @@ class StudentActions
         } else {
             array_push($this->errors, "Your records were not found");
         }
-        header("Location: /student/login.php");
-        exit();
+        return;
     }
 
-    public function findByRegNo($regNo)
-    {
+    public function findByRegNo($regNo) {
         $query = "SELECT * FROM {$this->table} WHERE reg_no = :reg_no";
         $statement = $this->db->connection()->prepare($query);
         $statement->setFetchMode(\PDO::FETCH_CLASS, Student::class);
