@@ -6,6 +6,11 @@ use App\Actions\StudentActions;
 
 if (!checkStudentLogin()) {
     $errors = [];
+    $data = [
+        'clearancePin' => '',
+        'regNo' => '',
+        'password' => ''
+    ];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
         $action = new StudentActions();
@@ -50,19 +55,19 @@ if (!checkStudentLogin()) {
 
                             <!-- Clearance Pin -->
                             <div class="mb-4 form-outline">
-                                <input name="clearancePin" type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your clearance pin" />
+                                <input value="<?php echo $data['clearancePin']; ?>" name="clearancePin" type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your clearance pin" />
                                 <label class="form-label" for="form3Example3">Clearance Pin</label>
                             </div>
 
                             <!-- RegNo -->
                             <div class="mb-4 form-outline">
-                                <input name="regNo" type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your REG NO." />
+                                <input name="regNo" value="<?php echo $data['regNo']; ?>" type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your REG NO." />
                                 <label class="form-label" for="form3Example3">REG NO.</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="mb-3 form-outline">
-                                <input name="password" type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
+                                <input value="<?php echo $data['password']; ?>" name="password" type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
                                 <label class="form-label" for="form3Example4">Password</label>
                             </div>
 

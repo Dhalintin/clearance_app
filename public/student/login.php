@@ -5,6 +5,10 @@ use App\Actions\StudentActions;
 require_once "../../vendor/autoload.php";
 
 if (!checkStudentLogin()) {
+    $data = [
+        'regNo' => '',
+        'password' => ''
+    ];
     $errors = [];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
@@ -49,13 +53,13 @@ if (!checkStudentLogin()) {
                             <?php endforeach ?>
                             <!-- RegNo -->
                             <div class="mb-4 form-outline">
-                                <input type="text" name="regNo" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your REG NO." />
+                                <input value="<?php echo $data['regNo']; ?>" type="text" name="regNo" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your REG NO." />
                                 <label class="form-label" for="form3Example3">REG NO.</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="mb-3 form-outline">
-                                <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
+                                <input value="<?php echo $data['password']; ?>" type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
                                 <label class="form-label" for="form3Example4">Password</label>
                             </div>
 

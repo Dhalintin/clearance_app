@@ -32,7 +32,16 @@ class StudentActions
             return;
         }
 
+        $pinValidator = new ClearancePinActions();
+        $pin = $pinValidator->validate($input['clearancePin']);
+        if (!$pin) {
+            array_push($this->errors, "Enter a valid pin!");
+            return;
+        }
 
+        $query = "INSERT INTO students (reg_no, clearance_pin, password, created_at) VALUES(:reg_no, :clearance_pin, :password, NOW())";
+        $statement = $this->db->connection()->prepare($query);
+        $statement->execute(['reg_no' => $regNo, 'clearance_pin' => $input['clearancePin'], 'password' => password_hash($input['password'])]);
     }
 
     public function login(array $input) {
