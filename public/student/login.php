@@ -28,7 +28,7 @@ if (!checkStudentLogin()) {
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="stylesheet" href="../css/main.css" />
         <title>AE-FUNAI Clearance Portal | Student Login</title>
     </head>
 
@@ -38,10 +38,10 @@ if (!checkStudentLogin()) {
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">
-                        <img src="/images/auth.png" class="img-fluid" alt="Sample image">
+                        <img src="../images/auth.png" class="img-fluid" alt="Sample image">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form method="POST" action="/student/login.php">
+                        <form method="POST" action="login.php">
                             <div class="flex-row d-flex align-items-center justify-content-center justify-content-lg-start">
                                 <h2 class="mb-4 me-3">Login</h2>
                             </div>
@@ -66,7 +66,7 @@ if (!checkStudentLogin()) {
                             <div class="pt-2 mt-4 text-center text-lg-start">
                                 <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
                                 <p class="pt-1 mt-2 mb-0 small fw-bold">
-                                    Don't have an account? <a href="/student/get-started.php" class="link-danger">Register</a>
+                                    Don't have an account? <a href="get-started.php" class="link-danger">Register</a>
                                 </p>
                             </div>
                         </form>
@@ -81,6 +81,6 @@ if (!checkStudentLogin()) {
 </html>
 <?php
 } else {
-header("Location: /student/dashboard.php");
+header("Location: dashboard.php");
 exit();
 }
