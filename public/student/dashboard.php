@@ -3,7 +3,7 @@
 require_once "../../vendor/autoload.php";
 
 if (checkStudentLogin()) {
-?>
+    ?>
     <!DOCTYPE html>
     <html>
 
@@ -23,9 +23,9 @@ if (checkStudentLogin()) {
         <?php include "navbar.php"; ?>
     </body>
 
-    </html>
+</html>
 <?php
 } else {
-    header("Location: /student/login.php");
-    exit();
+header("Location: /student/login.php");
+exit();
 }

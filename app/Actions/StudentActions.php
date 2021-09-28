@@ -25,6 +25,11 @@ class StudentActions
             return;
         }
 
+        if (strlen($input['password']) < 8) {
+            array_push($this->errors, "Password is too short!");
+            return;
+        }
+
         $existingStudent = $this->findByRegNo($input['regNo']);
 
         if ($existingStudent) {
@@ -41,7 +46,10 @@ class StudentActions
 
         $query = "INSERT INTO students (reg_no, clearance_pin, password, created_at) VALUES(:reg_no, :clearance_pin, :password, NOW())";
         $statement = $this->db->connection()->prepare($query);
-        $statement->execute(['reg_no' => $regNo, 'clearance_pin' => $input['clearancePin'], 'password' => password_hash($input['password'])]);
+        $statement->execute(['reg_no' => $input['regNo'], 'clearance_pin' => $input['clearancePin'], 'password' => password_hash($input['password'], PASSWORD_DEFAULT)]);
+        $pinValidator->setAsUsed($pin->pin_no);
+        $_SESSION['student'] = $input['regNo'];
+        return true;
     }
 
     public function login(array $input) {
@@ -56,6 +64,7 @@ class StudentActions
             if (!password_verify($input['password'], $student->password)) {
                 array_push($this->errors, "Incorect details");
             } else {
+                $_SESSION['student'] = $input['regNo'];
                 header("Location: /student/dashboard.php");
                 exit();
             }
