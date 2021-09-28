@@ -21,6 +21,29 @@ if (checkStudentLogin()) {
 
     <body>
         <?php include "navbar.php"; ?>
+        <!-- Jumbotron -->
+        <div class="p-5 text-center bg-light">
+            <h1 class="mb-3">Welcome To AE-FUNAI clearance Platform</h1>
+        </div>
+        <div class="p-4 d-flex flex-column flex-sm-row gap-4">
+            <div class="p-4 bg-light">
+                <div class="mb-3">
+                    <h3>Course Clearance</h3>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-primary" href="#" role="button">Start</a>
+                </div>
+            </div>
+            <div class="p-4 bg-light">
+                <div class="mb-3">
+                    <h3>School Fees Clearance</h3>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-primary" href="#" role="button">Start</a>
+                </div>
+            </div>
+        </div>
+        <!-- Jumbotron -->
     </body>
 
 </html>
