@@ -21,6 +21,53 @@ if (checkStudentLogin()) {
 
     <body>
         <?php include "navbar.php"; ?>
+        <!-- Jumbotron -->
+        <div class="p-5 text-center bg-light">
+            <h1 class="mb-3">Welcome To AE-FUNAI clearance Platform</h1>
+        </div>
+        <!-- Jumbotron -->
+        <div class="p-4 d-flex flex-wrap justify-content-center flex-column flex-sm-row gap-4">
+            <div class="p-4 shadow-2  rounded-6  bg-light">
+                <div class="mb-3">
+                    <h3>Course Clearance</h3>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-primary" href="#" role="button">Start</a>
+                </div>
+            </div>
+            <div class="p-4 shadow-2  rounded-6  bg-light">
+                <div class="mb-3">
+                    <h3>Hostel Clearance</h3>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-primary" href="#" role="button">Start</a>
+                </div>
+            </div>
+            <div class="p-4 shadow-2  rounded-6  bg-light">
+                <div class="mb-3">
+                    <h3>Library Clearance</h3>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-primary" href="#" role="button">Start</a>
+                </div>
+            </div>
+            <div class="p-4 shadow-2  rounded-6  bg-light">
+                <div class="mb-3">
+                    <h3>Bursary Clearance</h3>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-primary" href="#" role="button">Start</a>
+                </div>
+            </div>
+            <div class="p-4 shadow-2  rounded-6  bg-light">
+                <div class="mb-3">
+                    <h3>Departmental Clearance</h3>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-primary" href="#" role="button">Start</a>
+                </div>
+            </div>
+        </div>
     </body>
 
 </html>
