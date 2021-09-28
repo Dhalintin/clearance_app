@@ -65,8 +65,7 @@ class StudentActions
                 array_push($this->errors, "Incorect details");
             } else {
                 $_SESSION['student'] = $input['regNo'];
-                header("Location: /student/dashboard.php");
-                exit();
+                return true;
             }
         } else {
             array_push($this->errors, "Your records were not found");

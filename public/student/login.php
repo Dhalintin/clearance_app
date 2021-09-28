@@ -13,8 +13,12 @@ if (!checkStudentLogin()) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
         $action = new StudentActions();
-        $action->login($data ?? ['regNo' => '', 'password' => '']);
+        $login = $action->login($data ?? ['regNo' => '', 'password' => '']);
         $errors = $action->getErrors();
+        if ($login) {
+            header("Location: dashboard.php");
+            exit();
+        }
     }
     ?>
     <!DOCTYPE html>
