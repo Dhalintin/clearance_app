@@ -11,16 +11,19 @@ class StudentActions
     protected $errors = [];
     protected $table = "students";
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database();
     }
 
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
-    public function register(array $input) {
-        if (empty($input['regNo']) || empty($input['password']) || empty($input['clearancePin'])) {
+    public function register(array $input)
+    {
+        if (empty($input['regNo']) || empty($input['password']) || empty($input['clearancePin']) || empty($input['session'])) {
             array_push($this->errors, "All fields are required");
             return;
         }
@@ -44,15 +47,19 @@ class StudentActions
             return;
         }
 
-        $query = "INSERT INTO students (reg_no, clearance_pin, password, created_at) VALUES(:reg_no, :clearance_pin, :password, NOW())";
+        $query = "INSERT INTO students (reg_no, clearance_pin, session, password, created_at) VALUES(:reg_no, :clearance_pin, :session, :password, NOW())";
         $statement = $this->db->connection()->prepare($query);
-        $statement->execute(['reg_no' => $input['regNo'], 'clearance_pin' => $input['clearancePin'], 'password' => password_hash($input['password'], PASSWORD_DEFAULT)]);
+        $statement->execute([
+            'reg_no' => $input['regNo'], 'clearance_pin' => $input['clearancePin'],
+            'password' => password_hash($input['password'], PASSWORD_DEFAULT), 'session' => $input['session']
+        ]);
         $pinValidator->setAsUsed($pin->pin_no);
         $_SESSION['student'] = $input['regNo'];
         return true;
     }
 
-    public function login(array $input) {
+    public function login(array $input)
+    {
         if (empty($input['regNo']) || empty($input['password'])) {
             array_push($this->errors, "All fields are required");
             return;
@@ -73,7 +80,8 @@ class StudentActions
         return;
     }
 
-    public function findByRegNo($regNo) {
+    public function findByRegNo($regNo)
+    {
         $query = "SELECT * FROM {$this->table} WHERE reg_no = :reg_no";
         $statement = $this->db->connection()->prepare($query);
         $statement->setFetchMode(\PDO::FETCH_CLASS, Student::class);
