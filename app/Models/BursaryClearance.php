@@ -8,4 +8,9 @@ class BursaryClearance
     public $reg_no;
     public $session;
     public $clearance_status;
+
+    public function isCleared()
+    {
+        return $this->clearance_status === 'cleared';
+    }
 }

@@ -12,7 +12,7 @@ if (checkBursaryLogin()) {
         '2020/2021'
     ];
     $data = [
-        'session' => (in_array($_GET['session'], $validSessions)) ? $_GET['session'] :'2018/2019',
+        'session' => (in_array($_GET['session'], $validSessions)) ? $_GET['session'] : '2018/2019',
         'regNos' => []
     ];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,8 +21,8 @@ if (checkBursaryLogin()) {
         $action = new BursaryClearanceActions();
         $add = $action->addBatchRecord($data);
         $errors = $action->getErrors();
-        
-        if($add) {
+
+        if ($add) {
             header("Location: view-record.php?session=" . $data['session']);
             exit();
         }
@@ -54,7 +54,18 @@ if (checkBursaryLogin()) {
         <div class="container py-5" x-data='{ numberOfStudents: <?php echo (count($data['regNos']) > 0) ? count($data['regNos']) : 12; ?>, regNos: <?php echo json_encode($data["regNos"]); ?> }'>
             <div class="p-4 mx-auto col-md-12 shadow-2">
                 <form action="" method="POST">
-                    <?php foreach ($errors as $error) : ?>
+                    <?php foreach ($errors as $key => $error) : ?>
+                        <?php if ($key === 'duplicates') : ?>
+                            <div class="mb-3 text-danger">
+                                Some records already exist:
+                                <?php foreach ($errors['duplicates'] as $duplicate) : ?>
+                                    <div class="mb-2 text-dark">
+                                        <?php echo $duplicate->reg_no; ?> in <a href="view-record.php?session=<?php echo $duplicate->session; ?>"><?php echo $duplicate->session; ?></a> graduating list.
+                                    </div>
+                                <?php endforeach ?>
+                            </div>
+                        <?php continue;
+                        endif ?>
                         <div class="mb-3 text-danger">
                             <?php echo $error; ?>
                         </div>
