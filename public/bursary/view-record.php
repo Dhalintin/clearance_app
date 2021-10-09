@@ -38,12 +38,10 @@ if (checkBursaryLogin()) {
         <!-- Jumbotron -->
 
         <div class="container">
-            <div class="p-4">
+            <div class="py-5">
                 <h3 class="mb-5 text-center"><?php echo $session; ?> session</h3>
                 <div class="mb-5 d-flex justify-content-end">
-                    <button class="btn btn-primary">
-                        add student
-                    </button>
+                    <a class="btn btn-primary" href="add-record.php?session=<?php echo $session; ?>" role="button">add students</a>
                 </div>
                 <table id="students" class="table table-bordered table-striped" style="width:100%">
                     <thead>
@@ -68,7 +66,7 @@ if (checkBursaryLogin()) {
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
         <script>
             $(document).ready(function() {
                 $('#students').DataTable();

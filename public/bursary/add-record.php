@@ -6,16 +6,26 @@ use App\Actions\BursaryClearanceActions;
 
 if (checkBursaryLogin()) {
     $errors = [];
+    $validSessions = [
+        '2018/2019',
+        '2019/2020',
+        '2020/2021'
+    ];
     $data = [
-        'session' => '2018/2019',
+        'session' => (in_array($_GET['session'], $validSessions)) ? $_GET['session'] :'2018/2019',
         'regNos' => []
     ];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
         $data['regNos'] = (array_key_exists('regNos', $data) && is_array($data['regNos'])) ? array_values(array_filter($data['regNos'])) : [];
         $action = new BursaryClearanceActions();
-        $action->addBatchRecord($data);
+        $add = $action->addBatchRecord($data);
         $errors = $action->getErrors();
+        
+        if($add) {
+            header("Location: view-record.php?session=" . $data['session']);
+            exit();
+        }
     }
 ?>
     <!DOCTYPE html>
@@ -41,7 +51,7 @@ if (checkBursaryLogin()) {
         </div>
         <!-- Jumbotron -->
 
-        <div class="container px-4 py-5" x-data='{ numberOfStudents: <?php echo (count($data['regNos']) > 0) ? count($data['regNos']) : 12; ?>, regNos: <?php echo json_encode($data["regNos"]); ?> }'>
+        <div class="container py-5" x-data='{ numberOfStudents: <?php echo (count($data['regNos']) > 0) ? count($data['regNos']) : 12; ?>, regNos: <?php echo json_encode($data["regNos"]); ?> }'>
             <div class="p-4 mx-auto col-md-12 shadow-2">
                 <form action="" method="POST">
                     <?php foreach ($errors as $error) : ?>
@@ -87,6 +97,7 @@ if (checkBursaryLogin()) {
         </div>
         <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js" defer></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js" defer></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
     </body>
 
     </html>
