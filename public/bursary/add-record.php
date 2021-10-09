@@ -108,7 +108,6 @@ if (checkBursaryLogin()) {
         </div>
         <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js" defer></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js" defer></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
     </body>
 
     </html>
