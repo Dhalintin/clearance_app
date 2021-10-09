@@ -79,7 +79,7 @@ if (checkStudentLogin()) {
                         <h3>Library Clearance</h3>
                     </div>
                     <div>
-                        <a class="btn btn-primary" href="#" role="button">Start</a>
+                        <a class="btn btn-primary" href="library-clearance.php" role="button">Start</a>
                     </div>
                 </div>
 

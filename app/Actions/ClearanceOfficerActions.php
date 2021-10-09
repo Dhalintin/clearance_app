@@ -3,13 +3,13 @@
 namespace App\Actions;
 
 use App\Database;
-use App\Models\BursaryOfficer;
+use App\Models\ClearanceOfficer;
 
-class BusaryActions
+class ClearanceOfficerActions
 {
     private Database $db;
     protected $errors = [];
-    protected $table = 'bursary_office';
+    protected $table = 'clearance_officers';
 
     public function __construct()
     {
@@ -25,7 +25,7 @@ class BusaryActions
     {
         $query = "SELECT * FROM {$this->table} WHERE username = :username";
         $statement = $this->db->connection()->prepare($query);
-        $statement->setFetchMode(\PDO::FETCH_CLASS, BursaryOfficer::class);
+        $statement->setFetchMode(\PDO::FETCH_CLASS, ClearanceOfficer::class);
         $statement->execute(['username' => $username]);
         return $statement->fetch();
     }
@@ -37,14 +37,14 @@ class BusaryActions
             return;
         }
 
-        $bursaryOfficer = $this->findByUsername($input['username']);
+        $clearanceOfficer = $this->findByUsername($input['username']);
 
-        if ($bursaryOfficer) {
-            if (!password_verify($input['password'], $bursaryOfficer->password)) {
+        if ($clearanceOfficer) {
+            if (!password_verify($input['password'], $clearanceOfficer->password)) {
                 array_push($this->errors, "Incorect details");
             } else {
-                $_SESSION['bursaryOfficer'] = $input['username'];
-                return true;
+                $_SESSION['clearanceOfficer'] = $input['username'];
+                return $clearanceOfficer;
             }
         } else {
             array_push($this->errors, "Your records were not found");

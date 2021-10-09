@@ -23,7 +23,7 @@ if (checkStudentLogin()) {
         <?php include "navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
-            <h3 class="my-3 text-primary">Hostel Clearance</h3>
+            <h3 class="my-3 text-primary">Library Clearance</h3>
         </div>
     </body>
 

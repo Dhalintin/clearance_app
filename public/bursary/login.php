@@ -2,7 +2,7 @@
 
 require_once "../../vendor/autoload.php";
 
-use App\Actions\BusaryActions;
+use App\Actions\ClearanceOfficerActions;
 
 if (!checkBursaryLogin()) {
     /* if (checkStudentLogin()) {
@@ -16,10 +16,10 @@ if (!checkBursaryLogin()) {
     $errors = [];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
-        $action = new BusaryActions();
-        $login = $action->login($data ?? ['username' => '', 'password' => '']);
+        $action = new ClearanceOfficerActions();
+        $clearanceOfficer = $action->login($data ?? ['username' => '', 'password' => '']);
         $errors = $action->getErrors();
-        if ($login) {
+        if ($clearanceOfficer) {
             header("Location: dashboard.php");
             exit();
         }

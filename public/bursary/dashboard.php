@@ -27,7 +27,7 @@ if (checkBursaryLogin()) {
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
             <h1 class="my-4 text-primary">Bursary office</h1>
-            <h5>Logged in as: <?php echo $_SESSION['bursaryOfficer']; ?></h5>
+            <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer']; ?></h5>
         </div>
         <!-- Jumbotron -->
 

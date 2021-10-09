@@ -1,6 +1,6 @@
 <?php
 
-use App\Actions\BusaryActions;
+use App\Actions\ClearanceOfficerActions;
 use App\Actions\StudentActions;
 
 if (!function_exists('env')) {
@@ -29,17 +29,17 @@ if (!function_exists('checkStudentLogin')) {
 if (!function_exists('checkBursaryLogin')) {
     function checkBursaryLogin()
     {
-        if (isset($_SESSION['bursaryOfficer'])) {
+        if (isset($_SESSION['clearanceOfficer']) && authClearanceOfficer()->office === 'bursary') {
             return true;
         }
         return false;
     }
 }
 
-if (!function_exists('authBursaryOfficer')) {
-    function authBursaryOfficer()
+if (!function_exists('authClearanceOfficer')) {
+    function authClearanceOfficer()
     {
-        return (new BusaryActions())->findByUsername($_SESSION['bursaryOfficer']);
+        return (new ClearanceOfficerActions())->findByUsername($_SESSION['clearanceOfficer']);
     }
 }
 
