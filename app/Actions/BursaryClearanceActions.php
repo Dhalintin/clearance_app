@@ -37,26 +37,27 @@ class BursaryClearanceActions
     {
         if (empty($input['session']) || empty($input['regNos'])) {
             array_push($this->errors, "Enter at least one student record");
+            return;
         }
-        
+
         $query = "INSERT INTO {$this->table} (session, reg_no) VALUES ";
-        
-        $valuesStatement = implode(", ", array_map(function($key, $item) {
+
+        $valuesStatement = implode(", ", array_map(function ($key, $item) {
             return "(:session, :regNo{$key})";
         }, array_keys($input['regNos']), array_values($input['regNos'])));
-    
+
         $query .= $valuesStatement;
-        
+
         $statement = $this->db->connection()->prepare($query);
-        
+
         $values = [
             ':session' => $input['session']
         ];
-        
-        foreach($input['regNos'] as $key =>  $regNo) {
+
+        foreach ($input['regNos'] as $key =>  $regNo) {
             $values['regNo' . $key] = $regNo;
         }
-        
+
         $statement->execute($values);
         return true;
     }
