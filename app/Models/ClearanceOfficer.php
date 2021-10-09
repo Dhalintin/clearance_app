@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-class Student
+class ClearanceOfficer
 {
     public $id;
-    public $reg_no;
-    public $clearance_pin;
+    public $username;
+    public $fullname;
+    public $office;
     public $password;
-    public $session;
     public $created_at;
 }

@@ -1,0 +1,1 @@
+ALTER TABLE `clearance_officers` ADD `office` VARCHAR(255) NOT NULL AFTER `password`;

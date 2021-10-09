@@ -25,6 +25,11 @@ class Database
         $this->pdo = $pdo;
     }
 
+    public function __destruct()
+    {
+        $this->pdo = null;
+    }
+
     public function connection(): PDO
     {
         return $this->pdo;

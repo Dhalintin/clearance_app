@@ -1,0 +1,1 @@
+ALTER TABLE `students` ADD `session` VARCHAR(255) NOT NULL AFTER `reg_no`;
