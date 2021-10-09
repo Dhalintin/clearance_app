@@ -5,10 +5,10 @@ require_once "../../vendor/autoload.php";
 use App\Actions\BusaryActions;
 
 if (!checkBursaryLogin()) {
-    if (checkStudentLogin()) {
+    /* if (checkStudentLogin()) {
         header("Location: ../student/dashboard.php");
         exit();
-    }
+    } */
     $data = [
         'username' => '',
         'password' => ''
@@ -55,7 +55,7 @@ if (!checkBursaryLogin()) {
                             </div>
 
                             <?php foreach ($errors as $error) : ?>
-                                <div class="text-danger mb-3">
+                                <div class="mb-3 text-danger">
                                     <?php echo $error; ?>
                                 </div>
                             <?php endforeach ?>

@@ -24,52 +24,55 @@ if (checkStudentLogin()) {
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
             <h1 class="my-4 text-primary">Welcome to AE-FUNAI clearance portal</h1>
+            <h5>Logged in as: <?php echo $_SESSION['student']; ?></h5>
         </div>
         <!-- Jumbotron -->
-        <div class="flex-wrap gap-4 p-4 d-flex justify-content-center justify-content-md-start offset-md-2 col-md-10 flex-column flex-sm-row">
-            <div class="col-md-5 p-4 shadow-1 rounded-6 bg-dark">
-                <div class="mb-4 text-white">
-                    <h3>Course Clearance</h3>
+        <div class="container ">
+            <div class="flex-wrap gap-4 px-4 py-5 mx-auto d-flex justify-content-center col-md-10 flex-column flex-sm-row">
+                <div class="p-4 col-md-5 shadow-1 rounded-6 bg-dark">
+                    <div class="mb-4 text-white">
+                        <h3>Course Clearance</h3>
+                    </div>
+                    <div>
+                        <button class="border shadow-none btn text-success border-success" disabled role="button">Cleared</button>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <button class="btn text-success border-success border shadow-none" disabled role="button">Cleared</button>
-                </div>
-            </div>
 
-            <div class="p-4 col-md-5 shadow-1 rounded-6 bg-dark">
-                <div class="mb-4 text-white">
-                    <h3>Hostel Clearance</h3>
+                <div class="p-4 col-md-5 shadow-2 rounded-6 bg-dark">
+                    <div class="mb-4 text-white">
+                        <h3>Bursary Clearance</h3>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary" href="#" role="button">Start</a>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <a class="btn btn-primary" href="hostel-clearance.php" role="button">Start</a>
-                </div>
-            </div>
 
-            <div class="p-4 col-md-5 shadow-1 rounded-6 bg-dark">
-                <div class="mb-4 text-white">
-                    <h3>Library Clearance</h3>
+                <div class="p-4 col-md-5 shadow-1 rounded-6 bg-dark">
+                    <div class="mb-4 text-white">
+                        <h3>Library Clearance</h3>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary" href="#" role="button">Start</a>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <a class="btn btn-primary" href="#" role="button">Start</a>
-                </div>
-            </div>
 
-            <div class="p-4 col-md-5 shadow-2 rounded-6 bg-dark">
-                <div class="mb-4 text-white">
-                    <h3>Bursary Clearance</h3>
+                <div class="p-4 col-md-5 shadow-1 rounded-6 bg-dark">
+                    <div class="mb-4 text-white">
+                        <h3>Hostel Clearance</h3>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary" href="hostel-clearance.php" role="button">Start</a>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <a class="btn btn-primary" href="#" role="button">Start</a>
-                </div>
+                <!--   <div class="p-4 shadow-2 rounded-6 bg-light">
+                    <div class="mb-4">
+                        <h3>Departmental Clearance</h3>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary" href="#" role="button">Start</a>
+                    </div>
+                </div> -->
             </div>
-            <!--   <div class="p-4 shadow-2 rounded-6 bg-light">
-                <div class="mb-4">
-                    <h3>Departmental Clearance</h3>
-                </div>
-                <div class="text-right">
-                    <a class="btn btn-primary" href="#" role="button">Start</a>
-                </div>
-            </div> -->
         </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
     </body>

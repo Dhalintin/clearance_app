@@ -2,8 +2,10 @@
 
 require_once "../../vendor/autoload.php";
 
+use App\Actions\BursaryClearanceActions;
+
 if (checkBursaryLogin()) {
-    $bursaryOfficer = authBursaryOfficer();
+    $sessions = (new BursaryClearanceActions)->getAllSessions();
 ?>
     <!DOCTYPE html>
     <html>
@@ -25,31 +27,28 @@ if (checkBursaryLogin()) {
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
             <h1 class="my-4 text-primary">Bursary office</h1>
+            <h5>Logged in as: <?php echo $_SESSION['bursaryOfficer']; ?></h5>
         </div>
         <!-- Jumbotron -->
 
-        <div class="p-4 col-md-10 offset-md-1">
-            <div class="d-flex mb-4 justify-content-end">
-                <button class="btn btn-primary">
-                    upload record
-                </button>
+        <div class="container px-4 py-5">
+            <div class="p-4 text-white bg-dark">
+                <h3>Graduating Student Records</h3>
             </div>
-            <h3 class="text-center mb-4">
-                Students Record
-            </h3>
-
-            <table id="students" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>REG NO.</th>
-                        <th>Clearance Status</th>
-                        <th>Session</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="p-4 border border-dark">
+                <div class="gap-4 d-flex flex-column">
+                    <?php foreach ($sessions as $session) : ?>
+                        <a href="view-record.php?session=<?php echo $session['session']; ?>">
+                            <h4 class="p-3 bg-light">
+                                <?php echo $session['session']; ?>
+                            </h4>
+                        </a>
+                    <?php endforeach ?>
+                    <div>
+                        <a class="btn btn-primary" href="add-record.php" role="button">add record</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 

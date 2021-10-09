@@ -9,7 +9,7 @@ if (!checkStudentLogin()) {
     $data = [
         'clearancePin' => '',
         'regNo' => '',
-        'session' => '',
+        'session' => '2018/2019',
         'password' => ''
     ];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -53,7 +53,7 @@ if (!checkStudentLogin()) {
                             </div>
 
                             <?php foreach ($errors as $error) : ?>
-                                <div class="text-danger mb-3">
+                                <div class="mb-3 text-danger">
                                     <?php echo $error; ?>
                                 </div>
                             <?php endforeach ?>
@@ -71,10 +71,9 @@ if (!checkStudentLogin()) {
                             </div>
 
                             <!-- Academic Session -->
-                            <div class="mb-4 pb-2">
+                            <div class="pb-2 mb-4">
                                 <label class="form-label select-label" for="form3Example3">Academic Session</label>
-                                <select required name="session" id="form3Example3" class="form-control form-control-lg">
-                                    <option value="">select a session</option>
+                                <select required name="session" id="form3Example3" class="form-select">
                                     <option <?php if ($data['session'] === '2018/2019') echo 'selected'; ?> value="2018/2019">2018/2019</option>
                                     <option <?php if ($data['session'] === '2019/2020') echo 'selected'; ?> value="2019/2020">2019/2020</option>
                                     <option <?php if ($data['session'] === '2020/2021') echo 'selected'; ?> class="2020/2021">2020/2021</option>

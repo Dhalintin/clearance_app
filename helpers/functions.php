@@ -1,6 +1,7 @@
 <?php
 
 use App\Actions\BusaryActions;
+use App\Actions\StudentActions;
 
 if (!function_exists('env')) {
     function env($key, $default = null)
@@ -45,6 +46,6 @@ if (!function_exists('authBursaryOfficer')) {
 if (!function_exists('authStudent')) {
     function authStudent()
     {
-        return (new BusaryActions())->findByUsername($_SESSION['bursaryOfficer']);
+        return (new StudentActions)->findByRegNo($_SESSION['student']);
     }
 }
