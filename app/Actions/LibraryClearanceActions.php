@@ -17,6 +17,32 @@ class LibraryClearanceActions
         $this->db = new Database();
     }
 
+    public function getAllSessions()
+    {
+        $query = "SELECT DISTINCT session FROM {$this->table} ORDER BY session";
+        $statement = $this->db->connection()->prepare($query);
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function setStatus($regNo, $status)
+    {
+        $query = "UPDATE {$this->table} SET clearance_status = :status WHERE reg_no = :reg_no";
+        $statement = $this->db->connection()->prepare($query);
+        $statement->execute([':reg_no' => $regNo, ':status' => $status]);
+        return true;
+    }
+
+    public function getStudentsBySession($session)
+    {
+        $query = "SELECT * FROM {$this->table} WHERE session = :session";
+        $statement = $this->db->connection()->prepare($query);
+        $statement->setFetchMode(\PDO::FETCH_CLASS, LibraryClearance::class);
+        $statement->execute([':session' => $session]);
+        return $statement->fetchAll();
+    }
+
     public function storeLibraryCard(array $filesArray)
     {
         if ($filesArray["error"] === 4 || $filesArray["error"] === 6) {
@@ -27,7 +53,8 @@ class LibraryClearanceActions
             array_push($this->errors, "Maximum upload size is 100KB!");
             return;
         }
-        $regNo = authStudent()->reg_no;
+        $student = authStudent();
+        $regNo = $student->reg_no;
         $target_dir = "../../public/uploads/library-cards/";
         $fileExtension = strtolower(pathinfo(basename($filesArray["name"]), PATHINFO_EXTENSION));
         $fileName = str_replace('/', '_', $regNo) . '.' . $fileExtension;
@@ -52,7 +79,8 @@ class LibraryClearanceActions
             $statement = $this->db->connection()->prepare($query);
             $statement->execute([
                 ':reg_no' => $regNo,
-                ':library_card_image' => $fileName
+                ':library_card_image' => $fileName,
+                ':session' => $student->session
             ]);
             $_SESSION['clearanceRequestCreated'] = 'Your library card has been uploaded successfully and is awaiting verification.';
             return true;

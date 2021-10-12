@@ -1,11 +1,11 @@
 <?php
 
-require_once "../../vendor/autoload.php";
+require_once "../../../vendor/autoload.php";
 
-use App\Actions\BursaryClearanceActions;
+use App\Actions\LibraryClearanceActions;
 
-if (checkBursaryLogin()) {
-    $sessions = (new BursaryClearanceActions)->getAllSessions();
+if (checkClearanceOfficerLogin('library')) {
+    $sessions = (new LibraryClearanceActions)->getAllSessions();
 ?>
     <!DOCTYPE html>
     <html>
@@ -18,15 +18,15 @@ if (checkBursaryLogin()) {
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../css/main.css" />
-        <title>AE-FUNAI Clearance Portal | Bursary Office</title>
+
+        <title>AE-FUNAI Clearance Portal | Library Office</title>
     </head>
 
     <body>
-        <?php include "navbar.php"; ?>
+        <?php include "../navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
-            <h1 class="my-4 text-primary">Bursary office</h1>
+            <h1 class="my-4 text-primary">Library office</h1>
             <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer']; ?></h5>
         </div>
         <!-- Jumbotron -->
@@ -44,9 +44,11 @@ if (checkBursaryLogin()) {
                             </h4>
                         </a>
                     <?php endforeach ?>
-                    <div>
-                        <a class="btn btn-primary" href="add-record.php" role="button">add record</a>
-                    </div>
+                    <?php if (empty($session)) : ?>
+                        <div class="text-center">
+                            No data
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
@@ -56,6 +58,6 @@ if (checkBursaryLogin()) {
     </html>
 <?php
 } else {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }

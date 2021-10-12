@@ -16,6 +16,14 @@ if (!function_exists('env')) {
     }
 }
 
+if (!function_exists('public_path')) {
+    function public_path($path = '/hello')
+    {
+        $path = trim($path, DIRECTORY_SEPARATOR);
+        return (dirname(__DIR__, 1)  . DIRECTORY_SEPARATOR . 'public/' . (($path !== '') ? $path : ''));
+    }
+}
+
 if (!function_exists('checkStudentLogin')) {
     function checkStudentLogin()
     {
@@ -26,11 +34,11 @@ if (!function_exists('checkStudentLogin')) {
     }
 }
 
-if (!function_exists('checkBursaryLogin')) {
-    function checkBursaryLogin()
+if (!function_exists('checkClearanceOfficerLogin')) {
+    function checkClearanceOfficerLogin($office = null)
     {
-        if (isset($_SESSION['clearanceOfficer']) && authClearanceOfficer()->office === 'bursary') {
-            return true;
+        if (isset($_SESSION['clearanceOfficer'])) {
+            return (($office) ? (authClearanceOfficer()->office === $office) : true);
         }
         return false;
     }

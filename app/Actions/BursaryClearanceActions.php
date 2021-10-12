@@ -49,6 +49,7 @@ class BursaryClearanceActions
     {
         $query = "SELECT DISTINCT session FROM {$this->table} ORDER BY session";
         $statement = $this->db->connection()->prepare($query);
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
         $statement->execute();
         return $statement->fetchAll();
     }

@@ -1,0 +1,1 @@
+ALTER TABLE `library_clearance` ADD `session` VARCHAR(50) NOT NULL AFTER `reg_no`, ADD UNIQUE (`session`);

@@ -4,7 +4,7 @@ require_once "../../vendor/autoload.php";
 
 use App\Actions\ClearanceOfficerActions;
 
-if (!checkBursaryLogin()) {
+if (!checkClearanceOfficerLogin()) {
     /* if (checkStudentLogin()) {
         header("Location: ../student/dashboard.php");
         exit();
@@ -20,7 +20,7 @@ if (!checkBursaryLogin()) {
         $clearanceOfficer = $action->login($data ?? ['username' => '', 'password' => '']);
         $errors = $action->getErrors();
         if ($clearanceOfficer) {
-            header("Location: dashboard.php");
+            header("Location: " . authClearanceOfficer()->office . "/dashboard.php");
             exit();
         }
     }
@@ -36,7 +36,7 @@ if (!checkBursaryLogin()) {
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../css/main.css" />
+        <link rel="stylesheet" href="../css/main.css">
         <title>AE-FUNAI Clearance Portal | Bursary Office Login</title>
     </head>
 
@@ -51,7 +51,7 @@ if (!checkBursaryLogin()) {
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form method="POST" action="login.php">
                             <div class="flex-row d-flex align-items-center justify-content-center justify-content-lg-start">
-                                <h2 class="mb-4 me-3">Login | Bursary Office</h2>
+                                <h2 class="mb-4 me-3">Login | Clearance Officer</h2>
                             </div>
 
                             <?php foreach ($errors as $error) : ?>
@@ -86,6 +86,6 @@ if (!checkBursaryLogin()) {
     </html>
 <?php
 } else {
-    header("Location: dashboard.php");
+    header("Location: " . authClearanceOfficer()->office . "/dashboard.php");
     exit();
 }
