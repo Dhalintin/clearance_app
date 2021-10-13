@@ -56,21 +56,22 @@ if (checkClearanceOfficerLogin('library')) {
                                 <td><?php echo $student->reg_no; ?></td>
                                 <td><?php echo $student->session; ?></td>
                                 <td>
-                                    <img role="button" data-mdb-toggle="modal" data-mdb-target="#modal<?php echo $key; ?>" style="object-fit: scale-down; height: 80px;" class="w-100" src="../../uploads/library-cards/<?php echo $student->library_card_image; ?>">
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="#modal<?php echo $key; ?>" tabindex="-1" aria-labelledby="#modal<?php echo $key; ?>Label" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                    <img role="button" style="object-fit: scale-down; height: 80px;" class="w-100" data-mdb-toggle="modal" data-mdb-target="#exampleModal<?php echo $key; ?>" src="../../uploads/library-cards/<?php echo $student->library_card_image; ?>">
+                                    <div class="modal fade" id="exampleModal<?php echo $key; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?php echo $key; ?>" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="#modal<?php echo $key; ?>Label">Modal title</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel<?php echo $key; ?>"><?php echo $student->reg_no; ?></h5>
                                                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">...</div>
+                                                <div class="modal-body">
+                                                    <img style="object-fit: scale-down; height: 320px;" class="w-100" src="../../uploads/library-cards/<?php echo $student->library_card_image; ?>">
+                                                </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                                                    <button type="button" class="btn btn-sm btn-secondary" data-mdb-dismiss="modal">
                                                         Close
                                                     </button>
+                                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -97,8 +98,9 @@ if (checkClearanceOfficerLogin('library')) {
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
         <script src="../../js/student-clearance.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js" defer></script>
+        <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js" defer></script>
         <script>
             $(document).ready(function() {
                 $('#students').DataTable();

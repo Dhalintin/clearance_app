@@ -75,7 +75,7 @@ class LibraryClearanceActions
             array_push($this->errors, "Only JPG, JPEG, PNG files are allowed!");
         }
         if (move_uploaded_file($filesArray["tmp_name"], $target_file)) {
-            $query = "INSERT IGNORE INTO {$this->table} SET reg_no = :reg_no, library_card_image = :library_card_image";
+            $query = "INSERT IGNORE INTO {$this->table} SET reg_no = :reg_no, library_card_image = :library_card_image, session = :session";
             $statement = $this->db->connection()->prepare($query);
             $statement->execute([
                 ':reg_no' => $regNo,
