@@ -51,12 +51,30 @@ if (checkClearanceOfficerLogin('library')) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($students as $student) : ?>
+                        <?php foreach ($students as $key => $student) : ?>
                             <tr>
                                 <td><?php echo $student->reg_no; ?></td>
                                 <td><?php echo $student->session; ?></td>
                                 <td>
-                                    <img style="object-fit: scale-down; height: 80px;" class="w-100" src="../../uploads/library-cards/<?php echo $student->library_card_image; ?>">
+                                    <img role="button" data-mdb-toggle="modal" data-mdb-target="#modal<?php echo $key; ?>" style="object-fit: scale-down; height: 80px;" class="w-100" src="../../uploads/library-cards/<?php echo $student->library_card_image; ?>">
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="#modal<?php echo $key; ?>" tabindex="-1" aria-labelledby="#modal<?php echo $key; ?>Label" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="#modal<?php echo $key; ?>Label">Modal title</h5>
+                                                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">...</div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td><?php echo $student->clearance_status; ?></td>
                                 <td>
