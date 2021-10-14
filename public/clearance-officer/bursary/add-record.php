@@ -5,6 +5,7 @@ require_once "../../../vendor/autoload.php";
 use App\Actions\BursaryClearanceActions;
 
 if (checkClearanceOfficerLogin('bursary')) {
+    $office = 'bursary';
     $errors = [];
     $validSessions = [
         '2018/2019',
@@ -23,6 +24,7 @@ if (checkClearanceOfficerLogin('bursary')) {
         $errors = $action->getErrors();
 
         if ($add) {
+            $_SESSION['success'] = 'Students record uploaded successfully.';
             header("Location: view-record.php?session=" . $data['session']);
             exit();
         }

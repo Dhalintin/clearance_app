@@ -5,6 +5,7 @@ require_once "../../../vendor/autoload.php";
 use App\Actions\BursaryClearanceActions;
 
 if (checkClearanceOfficerLogin('bursary')) {
+    $office = 'bursary';
     $sessions = (new BursaryClearanceActions)->getAllSessions();
 ?>
     <!DOCTYPE html>
@@ -27,7 +28,7 @@ if (checkClearanceOfficerLogin('bursary')) {
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
             <h1 class="my-4 text-primary">Bursary office</h1>
-            <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer']; ?></h5>
+            <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer'] ?? $_SESSION['adminOfficer']; ?></h5>
         </div>
         <!-- Jumbotron -->
 

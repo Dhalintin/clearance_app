@@ -5,6 +5,7 @@ require_once "../../../vendor/autoload.php";
 use App\Actions\BursaryClearanceActions;
 
 if (checkClearanceOfficerLogin('bursary')) {
+    $office = 'bursary';
     $session = $_GET['session'];
     if (!$session) {
         header("Location: dashboard.php");
@@ -38,6 +39,19 @@ if (checkClearanceOfficerLogin('bursary')) {
         <!-- Jumbotron -->
 
         <div class="container">
+            <?php if (isset($_SESSION['success'])) : ?>
+                <div id="alert" class="px-2 pt-5 mx-auto col-md-6">
+                    <div class="px-4 py-4 mx-auto d-flex rounded-5 alert-success col-md-12">
+                        <h5 class="order-2 d-flex justify-content-end">
+                            <i onclick="document.getElementById('alert').classList.add('d-none')" class="fas pe-auto fa-times" role="button"></i>
+                        </h5>
+                        <h5 style="flex: 1;" class="pt-4"><?php echo $_SESSION['success']; ?></h5>
+                    </div>
+                </div>
+            <?php
+                unset($_SESSION['success']);
+            endif
+            ?>
             <div class="py-5">
                 <h3 class="mb-5 text-center"><?php echo $session; ?> session</h3>
                 <div class="mb-5 d-flex justify-content-end">

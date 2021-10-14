@@ -6,9 +6,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                <?php if (checkAdminLogin()) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../admin/dashboard.php">Admin Office</a>
+                    </li>
+                <?php endif ?>
                 <?php if (checkClearanceOfficerLogin()) : ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">Dashboard</a>
+                        <a class="nav-link" href="dashboard.php"><?php echo isset($office) ? ucfirst(strtolower($office)) : '' ?> Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../logout.php">Logout</a>

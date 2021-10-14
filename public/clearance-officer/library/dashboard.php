@@ -5,6 +5,7 @@ require_once "../../../vendor/autoload.php";
 use App\Actions\LibraryClearanceActions;
 
 if (checkClearanceOfficerLogin('library')) {
+    $office = 'library';
     $sessions = (new LibraryClearanceActions)->getAllSessions();
 ?>
     <!DOCTYPE html>
@@ -27,7 +28,7 @@ if (checkClearanceOfficerLogin('library')) {
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
             <h1 class="my-4 text-primary">Library office</h1>
-            <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer']; ?></h5>
+            <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer'] ?? $_SESSION['adminOfficer']; ?></h5>
         </div>
         <!-- Jumbotron -->
 

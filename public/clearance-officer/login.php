@@ -4,6 +4,11 @@ require_once "../../vendor/autoload.php";
 
 use App\Actions\ClearanceOfficerActions;
 
+if (checkAdminLogin()) {
+    header("Location: ../../../admin/dashboard.php");
+    exit();
+}
+
 if (!checkClearanceOfficerLogin()) {
     /* if (checkStudentLogin()) {
         header("Location: ../student/dashboard.php");
@@ -37,7 +42,7 @@ if (!checkClearanceOfficerLogin()) {
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/main.css">
-        <title>AE-FUNAI Clearance Portal | Bursary Office Login</title>
+        <title>AE-FUNAI Clearance Portal | Clearance Officer Login</title>
     </head>
 
     <body>

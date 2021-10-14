@@ -9,3 +9,5 @@ $action = new BursaryClearanceActions();
 $data = json_decode(file_get_contents('php://input'), true);
 
 $action->setStatus($data['regNo'], $data['status']);
+
+$_SESSION['success'] = 'Clearance status has been updated successfully.';

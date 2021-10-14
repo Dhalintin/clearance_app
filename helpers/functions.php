@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\AdminActions;
 use App\Actions\ClearanceOfficerActions;
 use App\Actions\StudentActions;
 
@@ -34,9 +35,20 @@ if (!function_exists('checkStudentLogin')) {
     }
 }
 
+if (!function_exists('checkAdminLogin')) {
+    function checkAdminLogin()
+    {
+        return isset($_SESSION['adminOfficer']) && authAdmin();
+    }
+}
+
 if (!function_exists('checkClearanceOfficerLogin')) {
     function checkClearanceOfficerLogin($office = null)
     {
+        if (checkAdminLogin()) {
+            return true;
+        }
+
         if (isset($_SESSION['clearanceOfficer'])) {
             return (($office) ? (authClearanceOfficer()->office === $office) : true);
         }
@@ -55,5 +67,12 @@ if (!function_exists('authStudent')) {
     function authStudent()
     {
         return (new StudentActions)->findByRegNo($_SESSION['student']);
+    }
+}
+
+if (!function_exists('authAdmin')) {
+    function authAdmin()
+    {
+        return (new AdminActions)->findByUsername($_SESSION['adminOfficer']);
     }
 }
