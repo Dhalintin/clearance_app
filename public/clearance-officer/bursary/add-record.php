@@ -1,10 +1,11 @@
 <?php
 
-require_once "../../vendor/autoload.php";
+require_once "../../../vendor/autoload.php";
 
 use App\Actions\BursaryClearanceActions;
 
-if (checkBursaryLogin()) {
+if (checkClearanceOfficerLogin('bursary')) {
+    $office = 'bursary';
     $errors = [];
     $validSessions = [
         '2018/2019',
@@ -23,6 +24,7 @@ if (checkBursaryLogin()) {
         $errors = $action->getErrors();
 
         if ($add) {
+            $_SESSION['success'] = 'Students record uploaded successfully.';
             header("Location: view-record.php?session=" . $data['session']);
             exit();
         }
@@ -39,12 +41,12 @@ if (checkBursaryLogin()) {
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../css/main.css" />
+
         <title>AE-FUNAI Clearance Portal | Bursary Office</title>
     </head>
 
     <body>
-        <?php include "navbar.php"; ?>
+        <?php include "../navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
             <h3 class="my-4 text-primary">Bursary office | Add record</h3>
@@ -108,12 +110,11 @@ if (checkBursaryLogin()) {
         </div>
         <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js" defer></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js" defer></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
     </body>
 
     </html>
 <?php
 } else {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }

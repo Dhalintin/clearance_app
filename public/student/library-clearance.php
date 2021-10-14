@@ -2,7 +2,23 @@
 
 require_once "../../vendor/autoload.php";
 
+use App\Actions\LibraryClearanceActions;
+
 if (checkStudentLogin()) {
+    $action = new LibraryClearanceActions();
+    $existingClearanceRequest = $action->findStudent($_SESSION['student']);
+    if ($existingClearanceRequest) {
+        header("Location: dashboard.php");
+        exit();
+    }
+    if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        $store = $action->storeLibraryCard($_FILES["libraryCard"]);
+        $errors = $action->getErrors();
+        if ($store) {
+            header("Location: dashboard.php");
+            exit();
+        }
+    }
 ?>
     <!DOCTYPE html>
     <html>
@@ -15,7 +31,7 @@ if (checkStudentLogin()) {
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../css/main.css" />
+
         <title>AE-FUNAI Clearance Portal | Student Dashboard</title>
     </head>
 
@@ -25,6 +41,46 @@ if (checkStudentLogin()) {
         <div class="p-5 text-center bg-light">
             <h3 class="my-3 text-primary">Library Clearance</h3>
         </div>
+
+        <div class="container py-5">
+            <div class="p-4 mx-auto border border-light rounded-5 col-md-7 shadow-2">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                    <?php if (isset($errors)) : ?>
+                        <?php foreach ($errors as $error) : ?>
+                            <div class="mb-3 text-danger">
+                                <?php echo $error; ?>
+                            </div>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                    <div class="mb-4">
+                        <label class="form-label" for="customFile">Library Card Picture</label>
+                        <input name="libraryCard" onchange="previewImage(event.target.files[0])" type="file" accept="image/*" class="form-control" id="customFile" />
+                        <div class="mt-2">
+                            Max. 100KB
+                        </div>
+                    </div>
+                    <img id="preview" class="mb-4 w-100 d-none">
+                    <div class="pt-2 mt-4 text-center text-lg-start">
+                        <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+        <script>
+            function previewImage(file) {
+                let image = document.getElementById('preview');
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function() {
+                        image.src = reader.result;
+                        image.classList.remove('d-none');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+        </script>
     </body>
 
     </html>

@@ -2,21 +2,30 @@
 
 require_once "../../vendor/autoload.php";
 
-use App\Actions\StudentActions;
+use App\Actions\ClearanceOfficerActions;
 
-if (!checkStudentLogin()) {
+if (checkAdminLogin()) {
+    header("Location: ../../../admin/dashboard.php");
+    exit();
+}
+
+if (!checkClearanceOfficerLogin()) {
+    /* if (checkStudentLogin()) {
+        header("Location: ../student/dashboard.php");
+        exit();
+    } */
     $data = [
-        'regNo' => '',
+        'username' => '',
         'password' => ''
     ];
     $errors = [];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
-        $action = new StudentActions();
-        $login = $action->login($data ?? ['regNo' => '', 'password' => '']);
+        $action = new ClearanceOfficerActions();
+        $clearanceOfficer = $action->login($data ?? ['username' => '', 'password' => '']);
         $errors = $action->getErrors();
-        if ($login) {
-            header("Location: dashboard.php");
+        if ($clearanceOfficer) {
+            header("Location: " . authClearanceOfficer()->office . "/dashboard.php");
             exit();
         }
     }
@@ -33,7 +42,7 @@ if (!checkStudentLogin()) {
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/main.css">
-        <title>AE-FUNAI Clearance Portal | Student Login</title>
+        <title>AE-FUNAI Clearance Portal | Clearance Officer Login</title>
     </head>
 
     <body>
@@ -42,13 +51,12 @@ if (!checkStudentLogin()) {
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">
-
                         <img src="../images/auth.png" class="img-fluid" alt="Sample image">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form method="POST" action="login.php">
                             <div class="flex-row d-flex align-items-center justify-content-center justify-content-lg-start">
-                                <h2 class="mb-4 me-3">Login</h2>
+                                <h2 class="mb-4 me-3">Login | Clearance Officer</h2>
                             </div>
 
                             <?php foreach ($errors as $error) : ?>
@@ -56,10 +64,10 @@ if (!checkStudentLogin()) {
                                     <?php echo $error; ?>
                                 </div>
                             <?php endforeach ?>
-                            <!-- RegNo -->
+                            <!-- username -->
                             <div class="mb-4 form-outline">
-                                <input value="<?php echo $data['regNo']; ?>" type="text" name="regNo" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your REG NO." />
-                                <label class="form-label" for="form3Example3">REG NO.</label>
+                                <input value="<?php echo $data['username']; ?>" type="text" name="username" id="form3Example3" class="form-control form-control-lg" placeholder="Enter your Username" />
+                                <label class="form-label" for="form3Example3">Username</label>
                             </div>
 
                             <!-- Password input -->
@@ -70,9 +78,6 @@ if (!checkStudentLogin()) {
 
                             <div class="pt-2 mt-4 text-center text-lg-start">
                                 <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                                <p class="pt-1 mt-2 mb-0 small fw-bold">
-                                    Don't have an account? <a href="get-started.php" class="link-danger">Register</a>
-                                </p>
                             </div>
                         </form>
                     </div>
@@ -86,6 +91,6 @@ if (!checkStudentLogin()) {
     </html>
 <?php
 } else {
-    header("Location: dashboard.php");
+    header("Location: " . authClearanceOfficer()->office . "/dashboard.php");
     exit();
 }

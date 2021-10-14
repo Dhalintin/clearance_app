@@ -1,10 +1,11 @@
 <?php
 
-require_once "../../vendor/autoload.php";
+require_once "../../../vendor/autoload.php";
 
 use App\Actions\BursaryClearanceActions;
 
-if (checkBursaryLogin()) {
+if (checkClearanceOfficerLogin('bursary')) {
+    $office = 'bursary';
     $sessions = (new BursaryClearanceActions)->getAllSessions();
 ?>
     <!DOCTYPE html>
@@ -18,16 +19,16 @@ if (checkBursaryLogin()) {
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../css/main.css" />
+
         <title>AE-FUNAI Clearance Portal | Bursary Office</title>
     </head>
 
     <body>
-        <?php include "navbar.php"; ?>
+        <?php include "../navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
             <h1 class="my-4 text-primary">Bursary office</h1>
-            <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer']; ?></h5>
+            <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer'] ?? $_SESSION['adminOfficer']; ?></h5>
         </div>
         <!-- Jumbotron -->
 
@@ -56,6 +57,6 @@ if (checkBursaryLogin()) {
     </html>
 <?php
 } else {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
