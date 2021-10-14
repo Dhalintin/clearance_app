@@ -6,7 +6,7 @@ use App\Database;
 use App\Models\Student;
 
 class StudentActions
-{
+{ 
     private Database $db;
     protected $errors = [];
     protected $table = "students";

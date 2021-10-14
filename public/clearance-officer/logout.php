@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+
+require_once '../../vendor/autoload.php';
+
+
 if (checkAdminLogin()) {
     header("Location: ../../../admin/dashboard.php");
     exit();

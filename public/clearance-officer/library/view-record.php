@@ -94,13 +94,13 @@ if (checkClearanceOfficerLogin('library')) {
                                 <td><?php echo $student->clearance_status; ?></td>
                                 <td>
                                     <?php if ($student->clearance_status === 'cleared') : ?>
-                                        <button title="set as pending" class="btn-sm btn btn-danger" onclick="librarySetStatus('<?php echo $student->reg_no; ?>', 'pending')" role="button">
+                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=pending';?>" title="set as pending" class="btn-sm btn btn-danger" role="button">
                                             <i class="fas fa-times"></i>
-                                        </button>
+                                        </a>
                                     <?php else : ?>
-                                        <button title="approve" class="btn btn-sm btn-success" onclick="librarySetStatus('<?php echo $student->reg_no; ?>', 'cleared')" role="button">
+                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=cleared';?>" title="approve" class="btn btn-sm btn-success" role="button">
                                             <i class="fas fa-check"></i>
-                                        </button>
+                                        </a>
                                     <?php endif ?>
                                 </td>
                             </tr>

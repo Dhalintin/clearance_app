@@ -2,5 +2,5 @@
 
 require_once '../vendor/autoload.php';
 
-header("Location: /student/login.php");
+header("Location: student/login.php");
 exit();

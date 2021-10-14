@@ -75,9 +75,9 @@ if (checkStudentLogin()) {
                                 pending
                             </div>
                         <?php else : ?>
-                            <button id="bursary" class="btn btn-primary" onclick="bursaryVerify(event.target)" role="button">
+                            <a href="bursary-verification.php" class="btn btn-primary" role="button">
                                 Start
-                            </button>
+                            </a>
                         <?php endif ?>
                     </div>
                 </div>
@@ -111,15 +111,6 @@ if (checkStudentLogin()) {
                 </div>
             </div>
         </div>
-        <script>
-            function bursaryVerify(button) {
-                let student;
-                button.innerText = 'Verifying payments...';
-                bursaryVerification().then((response) => {
-                    location.reload()
-                }).catch((error) => console.error(error));
-            }
-        </script>
         <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js" defer></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
         <script src="../js/student-clearance.js"></script>

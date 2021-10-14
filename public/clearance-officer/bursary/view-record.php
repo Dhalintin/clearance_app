@@ -74,13 +74,13 @@ if (checkClearanceOfficerLogin('bursary')) {
                                 <td><?php echo $student->clearance_status; ?></td>
                                 <td>
                                     <?php if ($student->clearance_status === 'cleared') : ?>
-                                        <button title="set as pending" class="btn-sm btn btn-danger" onclick="bursarySetStatus('<?php echo $student->reg_no; ?>', 'pending')" role="button">
+                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=pending';?>" title="set as pending" class="btn-sm btn btn-danger" role="button">
                                             <i class="fas fa-times"></i>
-                                        </button>
+                                        </a>
                                     <?php else : ?>
-                                        <button title="approve" class="btn btn-sm btn-success" onclick="bursarySetStatus('<?php echo $student->reg_no; ?>', 'cleared')" role="button">
+                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=cleared';?>" title="approve" class="btn btn-sm btn-success" role="button">
                                             <i class="fas fa-check"></i>
-                                        </button>
+                                        </a>
                                     <?php endif ?>
                                 </td>
                             </tr>
@@ -93,7 +93,6 @@ if (checkClearanceOfficerLogin('bursary')) {
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
-        <script src="../../js/student-clearance.js"></script>
         <script>
             $(document).ready(function() {
                 $('#students').DataTable();
