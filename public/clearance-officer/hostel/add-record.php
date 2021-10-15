@@ -2,10 +2,10 @@
 
 require_once "../../../vendor/autoload.php";
 
-use App\Actions\BursaryClearanceActions;
+use App\Actions\HostelClearanceActions;
 
-if (checkClearanceOfficerLogin('bursary')) {
-    $office = 'bursary';
+if (checkClearanceOfficerLogin('hostel')) {
+    $office = 'hostel';
     $errors = [];
     $validSessions = [
         '2018/2019',
@@ -19,7 +19,7 @@ if (checkClearanceOfficerLogin('bursary')) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
         $data['regNos'] = (array_key_exists('regNos', $data) && is_array($data['regNos'])) ? array_values(array_filter($data['regNos'])) : [];
-        $action = new BursaryClearanceActions();
+        $action = new HostelClearanceActions();
         $add = $action->addBatchRecord($data);
         $errors = $action->getErrors();
 
