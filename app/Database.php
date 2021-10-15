@@ -18,7 +18,7 @@ class Database
         $password = env('DB_PASSWORD');
         $dsn = "{$driver}:dbname={$dbname};host={$host}";
         try {
-            $pdo = new PDO("mysql:host=localhost;dbname=clearance-app",'root','Catandrat@1');
+            $pdo = new PDO($dsn, $username, $password);
         } catch (PDOException $error) {
             exit('Database error: ' . $error->getMessage());
         }
