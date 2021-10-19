@@ -19,7 +19,7 @@ class HostelClearanceActions
 
     public function getAllSessions()
     {
-        $query = "SELECT DISTINCT graduating_session FROM {$this->table} ORDER BY graduating_session";
+        $query = "SELECT DISTINCT accomodation_session FROM {$this->table} ORDER BY accomodation_session";
         $statement = $this->db->connection()->prepare($query);
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         $statement->execute();
@@ -34,16 +34,22 @@ class HostelClearanceActions
         return true;
     }
 
-    public function findExistingRecords(array $values, array $input)
+    public function findExistingRecords(string $session, array $regNos)
     {
-        $valuesStatement = "(" . implode(", ", array_map(function ($key, $item) {
-            return ":regNo{$key}";
-        }, array_keys($input), array_values($input))) . ")";
-        //$query = "SELECT * FROM {$this->table} WHERE reg_no IN " . $valuesStatement . " IN $secondValueStatement";
+        $query = "SELECT * FROM {$this->table} WHERE accomodation_session =  :session";
         $statement = $this->db->connection()->prepare($query);
-        $statement->setFetchMode(\PDO::FETCH_CLASS, BursaryClearance::class);
-        $statement->execute($values);
-        return $statement->fetchAll();
+        $statement->setFetchMode(\PDO::FETCH_CLASS, HostelClearance::class);
+        $statement->execute([
+            ':session' => $session
+        ]);
+        $result = $statement->fetchAll();
+        $duplicates = [];
+        foreach ($result as $item) {
+            if (in_array($item->reg_no, $regNos)) {
+                $duplicates[] = $item;
+            }
+        }
+        return $duplicates;
     }
 
     public function addBatchRecord(array $input)
@@ -54,14 +60,18 @@ class HostelClearanceActions
         }
         $values = [];
         foreach ($input['regNos'] as $key =>  $regNo) {
+            if (in_array($regNo, $values)) {
+                unset($input['regNos'][$key]);
+                continue;
+            }
             $values['regNo' . $key] = $regNo;
         }
-        $existingRecords = $this->findExistingRecords($values, $input['regNos']);
+        $existingRecords = $this->findExistingRecords($input['session'], $input['regNos']);
         if (count($existingRecords) !== 0) {
             $this->errors['duplicates'] = $existingRecords;
             return;
         }
-        $query = "INSERT INTO {$this->table} (session, reg_no) VALUES ";
+        $query = "INSERT INTO {$this->table} (accomodation_session, reg_no) VALUES ";
         $valuesStatement = implode(", ", array_map(function ($key, $item) {
             return "(:session, :regNo{$key})";
         }, array_keys($input['regNos']), array_values($input['regNos'])));
@@ -74,10 +84,43 @@ class HostelClearanceActions
 
     public function getStudentsBySession($session)
     {
-        $query = "SELECT * FROM {$this->table} WHERE graduating_session = :session";
+        $query = "SELECT * FROM {$this->table} WHERE accomodation_session = :session";
         $statement = $this->db->connection()->prepare($query);
         $statement->setFetchMode(\PDO::FETCH_CLASS, HostelClearance::class);
         $statement->execute([':session' => $session]);
+        $students = $statement->fetchAll();
+        $regNos = array_map(function ($item) {
+            return $item->reg_no;
+        }, $students);
+        $studentRecords = $this->getBatchRecord($regNos);
+
+        return array_map(function ($student) use ($studentRecords) {
+            foreach ($studentRecords as $record) {
+                if ($record['reg_no'] === $student->reg_no) {
+                    $student->hostelRecords[] = $record;
+                }
+            }
+            return $student->hostelRecords;
+        }, $students);
+    }
+
+    public function getBatchRecord($regNos)
+    {
+        $valuesStatement = "(" . implode(", ", array_map(function ($key, $item) {
+            return ":regNo{$key}";
+        }, array_keys($regNos), array_values($regNos))) . ")";
+        $values = [];
+        foreach ($regNos as $key =>  $regNo) {
+            if (in_array($regNo, $values)) {
+                unset($regNos[$key]);
+                continue;
+            }
+            $values['regNo' . $key] = $regNo;
+        }
+        $query = "SELECT * FROM {$this->table} WHERE reg_no IN " . $valuesStatement;
+        $statement = $this->db->connection()->prepare($query);
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        $statement->execute($values);
         return $statement->fetchAll();
     }
 
@@ -118,7 +161,7 @@ class HostelClearanceActions
             $statement->execute([
                 ':reg_no' => $regNo,
                 ':receipt_image' => $fileName,
-                ':session' => $student->session
+                ':session' => $session
             ]);
             $_SESSION['clearanceRequestCreated'] = 'Your receipt has been uploaded successfully and is awaiting verification.';
             return true;

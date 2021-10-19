@@ -2,6 +2,7 @@
 
 use App\Actions\BursaryClearanceActions;
 use App\Actions\LibraryClearanceActions;
+use App\Actions\HostelClearanceActions;
 
 require_once "../../vendor/autoload.php";
 
@@ -10,6 +11,14 @@ if (checkStudentLogin()) {
     $bursaryClearanceStatus = $bursaryClearance->clearance_status ?? $bursaryClearance;
     $libraryClearance = (new LibraryClearanceActions)->findStudent($_SESSION['student']);
     $libraryClearanceStatus = $libraryClearance->clearance_status ?? $libraryClearance;
+    $hostelClearance = (new HostelClearanceActions)->findStudentRecords($_SESSION['student']);
+    $hostelClearanceStatus = (empty($hostelClearance)) ? null : $hostelClearance[0]->clearance_status;
+    $clearanceCount = count($hostelClearance);
+    if ($clearanceCount > 0) {
+        if ($clearanceCount > count(array_filter(array_column($hostelClearance, 'receipt_image')))) {
+            $hostelClearanceStatus = 'upload receipts';
+        }
+    }
 ?>
     <!DOCTYPE html>
     <html>
@@ -69,7 +78,7 @@ if (checkStudentLogin()) {
                                 <i class="fas fa-check"></i> Cleared
                             </div>
                         <?php elseif ($bursaryClearanceStatus === 'pending') : ?>
-                            <div class="text-white shadow-none btn btn-warning pe-none">
+                            <div class="text-white shadow-none btn btn-info pe-none">
                                 pending
                             </div>
                         <?php else : ?>
@@ -90,7 +99,7 @@ if (checkStudentLogin()) {
                                 <i class="fas fa-check"></i> Cleared
                             </div>
                         <?php elseif ($libraryClearanceStatus === 'pending') : ?>
-                            <div class="text-white shadow-none btn btn-warning pe-none">
+                            <div class="text-white shadow-none btn btn-info pe-none">
                                 pending
                             </div>
                         <?php else : ?>
@@ -104,14 +113,28 @@ if (checkStudentLogin()) {
                         <h3>Hostel Clearance</h3>
                     </div>
                     <div>
-                        <a class="btn btn-primary" href="hostel-clearance.php" role="button">Start</a>
+                        <?php if ($hostelClearanceStatus === 'cleared') : ?>
+                            <div class="text-white shadow-none btn btn-success pe-none">
+                                <i class="fas fa-check"></i> Cleared
+                            </div>
+                        <?php elseif ($hostelClearanceStatus === 'upload receipts') : ?>
+                            <a href="hostel-clearance.php" class="btn btn-primary" role="button">
+                                Upload Receipts
+                            </a>
+                        <?php elseif ($hostelClearanceStatus === 'pending') : ?>
+                            <div class="text-white shadow-none btn btn-info pe-none">
+                                pending verification
+                            </div>
+                        <?php elseif ($hostelClearanceStatus === null) : ?>
+                            <div class="text-white shadow-none btn btn-warning pe-none">
+                                no hostel records found
+                            </div>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
         </div>
-        <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js" defer></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
-        <script src="../js/student-clearance.js"></script>
     </body>
 
     </html>

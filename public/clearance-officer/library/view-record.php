@@ -22,11 +22,11 @@ if (checkClearanceOfficerLogin('library')) {
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
+
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
         <title>AE-FUNAI Clearance Portal | Library Office</title>
     </head>
 
@@ -58,7 +58,6 @@ if (checkClearanceOfficerLogin('library')) {
                     <thead>
                         <tr>
                             <th>REG NO.</th>
-                            <th>Session</th>
                             <th>Library Card</th>
                             <th>Clearance Status</th>
                             <th>Approve/Set as pending</th>
@@ -68,7 +67,6 @@ if (checkClearanceOfficerLogin('library')) {
                         <?php foreach ($students as $key => $student) : ?>
                             <tr>
                                 <td><?php echo $student->reg_no; ?></td>
-                                <td><?php echo $student->session; ?></td>
                                 <td>
                                     <img role="button" style="object-fit: scale-down; height: 80px;" class="w-100" data-mdb-toggle="modal" data-mdb-target="#exampleModal<?php echo $key; ?>" src="../../uploads/library-cards/<?php echo $student->library_card_image; ?>">
                                     <div class="modal fade" id="exampleModal<?php echo $key; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?php echo $key; ?>" aria-hidden="true">
@@ -94,11 +92,11 @@ if (checkClearanceOfficerLogin('library')) {
                                 <td><?php echo $student->clearance_status; ?></td>
                                 <td>
                                     <?php if ($student->clearance_status === 'cleared') : ?>
-                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=pending';?>" title="set as pending" class="btn-sm btn btn-danger" role="button">
+                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=pending'; ?>" title="set as pending" class="btn-sm btn btn-danger" role="button">
                                             <i class="fas fa-times"></i>
                                         </a>
                                     <?php else : ?>
-                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=cleared';?>" title="approve" class="btn btn-sm btn-success" role="button">
+                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=cleared'; ?>" title="approve" class="btn btn-sm btn-success" role="button">
                                             <i class="fas fa-check"></i>
                                         </a>
                                     <?php endif ?>
@@ -112,9 +110,8 @@ if (checkClearanceOfficerLogin('library')) {
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-        <script src="../../js/student-clearance.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js" defer></script>
         <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js" defer></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js" defer></script>
         <script>
             $(document).ready(function() {
                 $('#students').DataTable();

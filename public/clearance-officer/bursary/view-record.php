@@ -22,11 +22,12 @@ if (checkClearanceOfficerLogin('bursary')) {
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
+
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
         <title>AE-FUNAI Clearance Portal | Bursary Office</title>
     </head>
 
@@ -61,7 +62,6 @@ if (checkClearanceOfficerLogin('bursary')) {
                     <thead>
                         <tr>
                             <th>REG NO.</th>
-                            <th>Session</th>
                             <th>Clearance Status</th>
                             <th>Approve/Set as pending</th>
                         </tr>
@@ -70,15 +70,14 @@ if (checkClearanceOfficerLogin('bursary')) {
                         <?php foreach ($students as $student) : ?>
                             <tr>
                                 <td><?php echo $student->reg_no; ?></td>
-                                <td><?php echo $student->session; ?></td>
                                 <td><?php echo $student->clearance_status; ?></td>
                                 <td>
                                     <?php if ($student->clearance_status === 'cleared') : ?>
-                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=pending';?>" title="set as pending" class="btn-sm btn btn-danger" role="button">
+                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=pending'; ?>" title="set as pending" class="btn-sm btn btn-danger" role="button">
                                             <i class="fas fa-times"></i>
                                         </a>
                                     <?php else : ?>
-                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=cleared';?>" title="approve" class="btn btn-sm btn-success" role="button">
+                                        <a href="set-status.php?regNo=<?php echo $student->reg_no . '&status=cleared'; ?>" title="approve" class="btn btn-sm btn-success" role="button">
                                             <i class="fas fa-check"></i>
                                         </a>
                                     <?php endif ?>

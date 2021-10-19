@@ -34,14 +34,14 @@ if (checkClearanceOfficerLogin('hostel')) {
 
         <div class="container px-4 py-5">
             <div class="p-4 text-white bg-dark">
-                <h3>Graduating Student Records</h3>
+                <h3>Hostel Accomodation Records</h3>
             </div>
             <div class="p-4 border border-dark">
                 <div class="gap-4 d-flex flex-column">
                     <?php foreach ($sessions as $session) : ?>
-                        <a href="view-record.php?session=<?php echo $session['session']; ?>">
+                        <a href="view-record.php?session=<?php echo $session['accomodation_session']; ?>">
                             <h4 class="p-3 bg-light">
-                                <?php echo $session['session']; ?>
+                                <?php echo $session['accomodation_session']; ?>
                             </h4>
                         </a>
                     <?php endforeach ?>

@@ -83,6 +83,10 @@ class BursaryClearanceActions
         }
         $values = [];
         foreach ($input['regNos'] as $key =>  $regNo) {
+            if (in_array($regNo, $values)) {
+                unset($input['regNos'][$key]);
+                continue;
+            }
             $values['regNo' . $key] = $regNo;
         }
         $existingRecords = $this->findExistingRecords($values, $input['regNos']);

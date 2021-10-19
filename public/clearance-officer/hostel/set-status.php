@@ -2,16 +2,15 @@
 
 require_once "../../../vendor/autoload.php";
 
-use App\Actions\BursaryClearanceActions;
+use App\Actions\HostelClearanceActions;
 
-$action = new BursaryClearanceActions();
+$action = new HostelClearanceActions();
 
 $data = $_GET;
 
-if(empty($data['regNo']) || empty($data['status'])) {
+if (empty($data['regNo']) || empty($data['status'])) {
 	header("Location: " . $_SERVER['HTTP_REFERER']);
 	exit();
-
 }
 
 

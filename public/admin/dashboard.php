@@ -73,7 +73,7 @@ if (checkAdminLogin()) {
                     </div>
                 </a>
 
-                <div class="px-5 py-4 text-white col-md-5 bg-dark shadow-6 rounded-6">
+                <a href="../clearance-officer/hostel/dashboard.php" class="px-5 py-4 text-white col-md-5 bg-dark shadow-6 rounded-6">
                     <div class="flex-1">
                         <div class="text-center">
                             <i class="fas fa-home"></i>
@@ -82,7 +82,7 @@ if (checkAdminLogin()) {
                             <h4>Hostel Office</h4>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
