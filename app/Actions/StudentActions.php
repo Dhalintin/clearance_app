@@ -6,7 +6,7 @@ use App\Database;
 use App\Models\Student;
 
 class StudentActions
-{ 
+{
     private Database $db;
     protected $errors = [];
     protected $table = "students";
@@ -14,6 +14,7 @@ class StudentActions
     public function __construct()
     {
         $this->db = new Database();
+        // var_dump($this->db);
     }
 
     public function getErrors()
@@ -23,6 +24,7 @@ class StudentActions
 
     public function register(array $input)
     {
+        // var_dump($input['clearancePin']);
         if (empty($input['regNo']) || empty($input['password']) || empty($input['clearancePin']) || empty($input['session'])) {
             array_push($this->errors, "All fields are required");
             return;

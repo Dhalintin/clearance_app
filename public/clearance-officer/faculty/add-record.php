@@ -2,24 +2,24 @@
 
 require_once "../../../vendor/autoload.php";
 
-use App\Actions\HostelClearanceActions;
+use App\Actions\BursaryClearanceActions;
 
-if (checkClearanceOfficerLogin('hostel')) {
-    $office = 'hostel';
+if (checkClearanceOfficerLogin('faculty')) {
+    $office = 'faculty';
     $errors = [];
     $validSessions = [
-        '2018/2019',
-        '2019/2020',
-        '2020/2021'
+        '2022/2023',
+        '2023/2024',
+        '2024/2025'
     ];
     $data = [
-        'session' => (in_array($_GET['session'], $validSessions)) ? $_GET['session'] : '2018/2019',
+        'session' => (in_array($_GET['session'], $validSessions)) ? $_GET['session'] : '2022/2023',
         'regNos' => []
     ];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
         $data['regNos'] = (array_key_exists('regNos', $data) && is_array($data['regNos'])) ? array_values(array_filter($data['regNos'])) : [];
-        $action = new HostelClearanceActions();
+        $action = new BursaryClearanceActions();
         $add = $action->addBatchRecord($data);
         $errors = $action->getErrors();
 
@@ -42,14 +42,14 @@ if (checkClearanceOfficerLogin('hostel')) {
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
 
-        <title>AE-FUNAI Clearance Portal | Hostel Office</title>
+        <title>AE-FUNAI Clearance Portal | faculty Office</title>
     </head>
 
     <body>
         <?php include "../navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
-            <h3 class="my-4 text-primary">Hostel office | Add record</h3>
+            <h3 class="my-4 text-primary">faculty office | Add record</h3>
         </div>
         <!-- Jumbotron -->
 
@@ -62,7 +62,7 @@ if (checkClearanceOfficerLogin('hostel')) {
                                 Some records already exist:
                                 <?php foreach ($errors['duplicates'] as $duplicate) : ?>
                                     <div class="mb-2 text-dark">
-                                        <?php echo $duplicate->reg_no; ?> in <?php echo $data['session']; ?> session.
+                                        <?php echo $duplicate->reg_no; ?> in <a href="view-record.php?session=<?php echo $duplicate->session; ?>"><?php echo $duplicate->session; ?></a> graduating list.
                                     </div>
                                 <?php endforeach ?>
                             </div>
@@ -77,9 +77,9 @@ if (checkClearanceOfficerLogin('hostel')) {
                     <div class="pb-2 mb-4 col-sm-6">
                         <label class="form-label select-label" for="form3Example3">Academic Session</label>
                         <select required name="session" id="form3Example3" class="form-select">
-                            <?php foreach ($validSessions as $session) :  ?>
-                                <option <?php if ($data['session'] === $session) echo 'selected'; ?> value="<?php echo $session ?>"><?php echo $session ?></option>
-                            <?php endforeach ?>
+                            <option <?php if ($data['session'] === '2022/2023') echo 'selected'; ?> value="2022/2023">2022/2023</option>
+                            <option <?php if ($data['session'] === '2023/2024') echo 'selected'; ?> value="2023/2024">2023/2024</option>
+                            <option <?php if ($data['session'] === '2024/2025') echo 'selected'; ?> class="2024/2025">2024/2025</option>
                         </select>
                     </div>
 

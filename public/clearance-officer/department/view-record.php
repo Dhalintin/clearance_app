@@ -4,8 +4,8 @@ require_once "../../../vendor/autoload.php";
 
 use App\Actions\HostelClearanceActions;
 
-if (checkClearanceOfficerLogin('hostel')) {
-    $office = 'hostel';
+if (checkClearanceOfficerLogin('department')) {
+    $office = 'department';
     $session = $_GET['session'];
     if (!$session) {
         header("Location: dashboard.php");
@@ -27,14 +27,14 @@ if (checkClearanceOfficerLogin('hostel')) {
 
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
-        <title>AE-FUNAI Clearance Portal | Hostel Office</title>
+        <title>AE-FUNAI Clearance Portal | Department Office</title>
     </head>
 
     <body>
         <?php include "../navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
-            <h3 class="my-4 text-primary">Hostel office | Student records</h3>
+            <h3 class="my-4 text-primary">Department office | Student records</h3>
         </div>
         <!-- Jumbotron -->
 
@@ -61,7 +61,7 @@ if (checkClearanceOfficerLogin('hostel')) {
                     <thead>
                         <tr>
                             <th>REG NO.</th>
-                            <th>Hostel Receipts</th>
+                            <th>Department Receipts</th>
                             <th>Clearance Status</th>
                             <th>Approve/Set as pending</th>
                         </tr>

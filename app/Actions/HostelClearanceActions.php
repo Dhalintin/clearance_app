@@ -9,7 +9,7 @@ class HostelClearanceActions
 {
     private Database $db;
     protected $errors = [];
-    protected $table = 'hostel_clearance';
+    protected $table = 'department_clearance';
     protected $allowedMimes = ['jpg', 'png', 'jpg'];
 
     public function __construct()
@@ -130,10 +130,10 @@ class HostelClearanceActions
             array_push($this->errors, "Select an image!");
             return;
         }
-        if ($filesArray["error"] === 2) {
-            array_push($this->errors, "Maximum upload size is 100KB!");
-            return;
-        }
+        // if ($filesArray["error"] === 2) {
+        //     array_push($this->errors, "Maximum upload size is 100KB!");
+        //     return;
+        // }
         $student = authStudent();
         $regNo = $student->reg_no;
         $target_dir = "../../public/uploads/hostel-receipts/";
@@ -148,10 +148,11 @@ class HostelClearanceActions
             return;
         }
         // Check file size
-        if ($filesArray["size"] > 100000) {
-            array_push($this->errors, "Maximum upload size is 100KB!");
-            return;
-        }
+        // if ($filesArray["size"] > 100000) {
+        //     array_push($this->errors, "Maximum upload size is 100KB!");
+        //     return;
+        // }
+
         if (!in_array($fileExtension, $this->allowedMimes)) {
             array_push($this->errors, "Only JPG, JPEG, PNG files are allowed!");
         }

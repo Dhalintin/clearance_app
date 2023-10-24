@@ -9,7 +9,7 @@ class BursaryClearanceActions
 {
     private Database $db;
     protected $errors = [];
-    protected $table = 'bursary_clearance';
+    protected $table = 'faculty_clearance';
 
     public function __construct()
     {

@@ -11,14 +11,14 @@ class Database
 
     public function __construct()
     {
-        $driver = env('DB_CONNECTION');
-        $host = env('DB_HOST');
-        $dbname = env('DB_NAME');
-        $username = env('DB_USERNAME');
-        $password = env('DB_PASSWORD');
+        $driver = 'mysql';
+        $host = 'localhost';
+        $dbname = 'clearance_app';
+        $username = 'root';
+        $password = '';
         $dsn = "{$driver}:dbname={$dbname};host={$host}";
         try {
-            $pdo = new PDO($dsn, $username, $password);
+            $pdo = new PDO($dsn, $username, '');
         } catch (PDOException $error) {
             exit('Database error: ' . $error->getMessage());
         }

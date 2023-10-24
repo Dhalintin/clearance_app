@@ -51,13 +51,13 @@ if (checkAdminLogin()) {
                     </div>
                 </a>
 
-                <a href="../clearance-officer/bursary/dashboard.php" role="button" class="px-5 py-4 text-white col-md-5 bg-primary shadow-6 rounded-6">
+                <a href="../clearance-officer/faculty/dashboard.php" role="button" class="px-5 py-4 text-white col-md-5 bg-primary shadow-6 rounded-6">
                     <div class="flex-1">
                         <div class="text-center">
                             <i class="fas fa-money-bill"></i>
                         </div>
                         <div class="mt-4 text-center">
-                            <h4>Bursary Office</h4>
+                            <h4>Faculty Office</h4>
                         </div>
                     </div>
                 </a>
@@ -73,13 +73,13 @@ if (checkAdminLogin()) {
                     </div>
                 </a>
 
-                <a href="../clearance-officer/hostel/dashboard.php" class="px-5 py-4 text-white col-md-5 bg-dark shadow-6 rounded-6">
+                <a href="../clearance-officer/department/dashboard.php" class="px-5 py-4 text-white col-md-5 bg-dark shadow-6 rounded-6">
                     <div class="flex-1">
                         <div class="text-center">
                             <i class="fas fa-home"></i>
                         </div>
                         <div class="mt-4 text-center">
-                            <h4>Hostel Office</h4>
+                            <h4>Department Office</h4>
                         </div>
                     </div>
                 </a>

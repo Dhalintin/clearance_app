@@ -14,10 +14,12 @@ if (!checkStudentLogin()) {
     ];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = filter_input_array(INPUT_POST);
+        // var_dump($data);
         $action = new StudentActions();
         $register = $action->register($data ?? ['regNo' => '', 'password' => '', 'clearancePin' => '', 'session' => '']);
         $errors = $action->getErrors();
         if ($register) {
+            // var_dump($data);
             header("Location: dashboard.php");
             exit();
         }
@@ -74,9 +76,9 @@ if (!checkStudentLogin()) {
                             <div class="pb-2 mb-4">
                                 <label class="form-label select-label" for="form3Example3">Academic Session</label>
                                 <select required name="session" id="form3Example3" class="form-select">
-                                    <option <?php if ($data['session'] === '2018/2019') echo 'selected'; ?> value="2018/2019">2018/2019</option>
-                                    <option <?php if ($data['session'] === '2019/2020') echo 'selected'; ?> value="2019/2020">2019/2020</option>
-                                    <option <?php if ($data['session'] === '2020/2021') echo 'selected'; ?> class="2020/2021">2020/2021</option>
+                                    <option <?php if ($data['session'] === '2022/2023') echo 'selected'; ?> value="2022/2023">2022/2023</option>
+                                    <option <?php if ($data['session'] === '2023/2024') echo 'selected'; ?> value="2023/2024">2023/2024</option>
+                                    <option <?php if ($data['session'] === '2024/2025') echo 'selected'; ?> class="2024/2025">2024/2025</option>
                                 </select>
                             </div>
 

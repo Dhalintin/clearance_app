@@ -45,6 +45,8 @@ class LibraryClearanceActions
 
     public function storeLibraryCard(array $filesArray)
     {
+
+
         if ($filesArray["error"] === 4 || $filesArray["error"] === 6) {
             array_push($this->errors, "Select an image!");
             return;
@@ -62,20 +64,23 @@ class LibraryClearanceActions
 
         // Check if image file is a actual image or fake image
         $check = (empty($filesArray["tmp_name"])) ? false : getimagesize($filesArray["tmp_name"]);
+
         if ($check === false) {
             array_push($this->errors, "Selected file is not an image!");
             return;
         }
-        // Check file size
-        if ($filesArray["size"] > 100000) {
-            array_push($this->errors, "Maximum upload size is 100KB!");
-            return;
-        }
+        //Check file size
+        // if ($filesArray["size"] > 100000) {
+        //     array_push($this->errors, "Maximum upload size is 100KB!");
+        //     return;
+        // }
+
         if (!in_array($fileExtension, $this->allowedMimes)) {
             array_push($this->errors, "Only JPG, JPEG, PNG files are allowed!");
         }
+
         if (move_uploaded_file($filesArray["tmp_name"], $target_file)) {
-            $query = "INSERT IGNORE INTO {$this->table} SET reg_no = :reg_no, library_card_image = :library_card_image, session = :session";
+            $query = "INSERT INTO {$this->table} SET reg_no = :reg_no, library_card_image = :library_card_image, session = :session";
             $statement = $this->db->connection()->prepare($query);
             $statement->execute([
                 ':reg_no' => $regNo,

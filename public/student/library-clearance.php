@@ -45,7 +45,7 @@ if (checkStudentLogin()) {
         <div class="container py-5">
             <div class="p-4 mx-auto border border-light rounded-5 col-md-7 shadow-2">
                 <form action="" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+
                     <?php if (isset($errors)) : ?>
                         <?php foreach ($errors as $error) : ?>
                             <div class="mb-3 text-danger">

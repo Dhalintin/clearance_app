@@ -15,7 +15,7 @@ if (!$student) {
         'reg_no' => $student->reg_no,
         'session' => $student->session,
     ]);
-    $_SESSION['clearanceRequestCreated'] = 'Your clearance request has been sent to the bursary department and is awaiting approval.';
+    $_SESSION['clearanceRequestCreated'] = 'Your clearance request has been sent to the faculty department and is awaiting approval.';
 }
 
 

@@ -37,7 +37,7 @@ if (checkStudentLogin()) {
         <?php include "navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
-            <h3 class="my-3 text-primary">Hostel Clearance</h3>
+            <h3 class="my-3 text-primary">Department Clearance</h3>
         </div>
 
         <div class="container py-5">
@@ -62,61 +62,60 @@ if (checkStudentLogin()) {
                 <?php endforeach ?>
             <?php endif ?>
             <div class="row">
-                <?php foreach ($studentRecords as $key => $record) : ?>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <?php if ($record->receipt_image) : ?>
-                                <img style="object-fit: scale-down; height: 300px;" class="w-100 card-img-top" src="../../uploads/hostel-receipts/<?php echo $record->receipt_image; ?>" alt="receipt" />
-                            <?php else : ?>
-                                <div class="p-4 text-center">
-                                    <i style="font-size: 120px;" class="fas fa-image"></i>
-                                </div>
-                                <div class="text-center">
-                                    no receipt
-                                </div>
-                            <?php endif ?>
-                            <div class="px-4 py-4 card-body">
-                                <h6 class="mb-2 card-title"><?php echo $record->accomodation_session; ?> session</h6>
-                                <?php if (!$record->receipt_image) : ?>
-                                    <button class="btn btn-sm btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal<?php echo $key; ?>">Upload Receipt</button>
+                <!-- <?php foreach ($studentRecords as $key => $record) : ?> -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <?php if ($record->receipt_image) : ?>
+                            <img style="object-fit: scale-down; height: 300px;" class="w-100 card-img-top" src=".././uploads/hostel-receipts/<?php echo $record->receipt_image; ?>" alt="receipt" />
+                        <?php else : ?>
+                            <div class="p-4 text-center">
+                                <i style="font-size: 120px;" class="fas fa-image"></i>
+                            </div>
+                            <div class="text-center">
+                                no receipt
+                            </div>
+                        <?php endif ?>
+                        <div class="px-4 py-4 card-body">
+                            <h6 class="mb-2 card-title"><?php echo $record->accomodation_session; ?> session</h6>
+                            <?php if (!$record->receipt_image) : ?>
+                                <button class="btn btn-sm btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal<?php echo $key; ?>">Upload Receipt</button>
 
-                                    <div class="modal fade" id="exampleModal<?php echo $key; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?php echo $key; ?>" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel<?php echo $key; ?>">Upload Receipt: <?php echo $record->accomodation_session; ?> session</h5>
-                                                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="" method="POST" enctype="multipart/form-data">
-                                                        <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                                                        <input type="hidden" name="session" value="<?php echo $record->accomodation_session; ?>" />
-                                                        <div class="mb-4">
-                                                            <label class="form-label" for="customFile">Receipt Picture</label>
-                                                            <input name="receiptImage" onchange="previewImage(event.target.files[0])" type="file" accept="image/*" class="form-control" id="customFile" />
-                                                            <div class="mt-2">
+                                <div class="modal fade" id="exampleModal<?php echo $key; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?php echo $key; ?>" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel<?php echo $key; ?>">Upload Receipt: <?php echo $record->accomodation_session; ?> session</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="" method="POST" enctype="multipart/form-data">
+                                                    <input type="hidden" name="session" value="<?php echo $record->accomodation_session; ?>" />
+                                                    <div class="mb-4">
+                                                        <label class="form-label" for="customFile">Receipt Picture</label>
+                                                        <input name="receiptImage" onchange="previewImage(event.target.files[0])" type="file" accept="image/*" class="form-control" id="customFile" />
+                                                        <!-- <div class="mt-2">
                                                                 Max. 100KB
-                                                            </div>
-                                                        </div>
-                                                        <img style="object-fit: scale-down; height: 320px;" id="preview" class="mb-4 w-100 d-none">
-                                                        <div class="pt-2 mt-4 text-center text-lg-start">
-                                                            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Upload</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-sm btn-secondary" data-mdb-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                </div>
+                                                            </div> -->
+                                                    </div>
+                                                    <img style="object-fit: scale-down; height: 320px;" id="preview" class="mb-4 w-100 d-none">
+                                                    <div class="pt-2 mt-4 text-center text-lg-start">
+                                                        <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Upload</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm btn-secondary" data-mdb-dismiss="modal">
+                                                    Close
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                <?php endif ?>
-                            </div>
+                                </div>
+                            <?php endif ?>
                         </div>
                     </div>
-                <?php endforeach ?>
+                </div>
+            <?php endforeach ?>
             </div>
         </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js" defer></script>

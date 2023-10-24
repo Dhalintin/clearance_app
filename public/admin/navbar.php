@@ -11,16 +11,16 @@
                         <a class="nav-link" href="dashboard.php">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../clearance-officer/bursary/dashboard.php">Bursary Office</a>
+                        <a class="nav-link" href="../clearance-officer/faculty/dashboard.php">faculty Office</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../clearance-officer/library/dashboard.php">Library Office</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../clearance-officer/hostel/dashboard.php">Hostel Office</a>
+                        <a class="nav-link" href="../clearance-officer/department/dashboard.php">Hostel Office</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Logout</a>
+                        <a class="nav-link" href="./logout.php">Logout</a>
                     </li>
                 <?php else : ?>
                     <li class="nav-item">

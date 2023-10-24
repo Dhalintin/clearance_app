@@ -1,1 +1,0 @@
-CREATE TABLE `clearance_app`.`bursary_clearance` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `clearance_status` VARCHAR(20) NOT NULL DEFAULT 'cleared' , `reg_no` VARCHAR(50) NOT NULL , `session` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`), UNIQUE (`reg_no`)) ENGINE = InnoDB;

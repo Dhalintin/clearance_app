@@ -4,8 +4,8 @@ require_once "../../../vendor/autoload.php";
 
 use App\Actions\BursaryClearanceActions;
 
-if (checkClearanceOfficerLogin('bursary')) {
-    $office = 'bursary';
+if (checkClearanceOfficerLogin('faculty')) {
+    $office = 'faculty';
     $session = $_GET['session'];
     if (!$session) {
         header("Location: dashboard.php");
@@ -28,14 +28,14 @@ if (checkClearanceOfficerLogin('bursary')) {
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
 
-        <title>AE-FUNAI Clearance Portal | Bursary Office</title>
+        <title>AE-FUNAI Clearance Portal | Faculty Office</title>
     </head>
 
     <body>
         <?php include "../navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
-            <h3 class="my-4 text-primary">Bursary office | Student records</h3>
+            <h3 class="my-4 text-primary">Faculty office | Student records</h3>
         </div>
         <!-- Jumbotron -->
 

@@ -8,12 +8,12 @@ require_once "../../vendor/autoload.php";
 if (checkAdminLogin()) {
     $errors = [];
     $validOffices = [
-        'bursary',
-        'hostel',
+        'faculty',
+        'department',
         'library'
     ];
     $data = [
-        'office' => 'bursary',
+        'office' => 'faculty',
         'username' => '',
         'password' => '',
         'fullname' => ''

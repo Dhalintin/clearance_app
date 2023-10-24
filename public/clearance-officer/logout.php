@@ -12,5 +12,5 @@ if (checkAdminLogin()) {
 
 unset($_SESSION['clearanceOfficer']);
 
-header("Location: login.php");
+header("Location: ./login.php");
 exit();

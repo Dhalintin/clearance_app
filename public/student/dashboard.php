@@ -12,7 +12,8 @@ if (checkStudentLogin()) {
     $libraryClearance = (new LibraryClearanceActions)->findStudent($_SESSION['student']);
     $libraryClearanceStatus = $libraryClearance->clearance_status ?? $libraryClearance;
     $hostelClearance = (new HostelClearanceActions)->findStudentRecords($_SESSION['student']);
-    $hostelClearanceStatus = (empty($hostelClearance)) ? null : $hostelClearance[0]->clearance_status;
+    $hostelClearanceStatus = 'upload receipts';
+    // (empty($hostelClearance)) ? null : $hostelClearance[0]->clearance_status;
     $clearanceCount = count($hostelClearance);
     if ($clearanceCount > 0) {
         if ($clearanceCount > count(array_filter(array_column($hostelClearance, 'receipt_image')))) {
@@ -41,6 +42,7 @@ if (checkStudentLogin()) {
             <h1 class="my-4 text-primary">Welcome to AE-FUNAI clearance portal</h1>
             <h5>Logged in as: <?php echo $_SESSION['student']; ?></h5>
         </div>
+
         <!-- Jumbotron -->
         <div class="container">
             <?php if (isset($_SESSION['clearanceRequestCreated'])) : ?>
@@ -56,7 +58,28 @@ if (checkStudentLogin()) {
                 unset($_SESSION['clearanceRequestCreated']);
             endif
             ?>
+
+            <?php if ($bursaryClearanceStatus === 'cleared' && $libraryClearanceStatus === 'cleared' &&  $hostelClearanceStatus === 'cleared') : ?>
+                <div class="flex-wrap gap-4 px-4 py-5 mx-auto d-flex justify-content-center col-md-10 flex-column flex-sm-row">
+                    <div class=" col-md-10">
+                        <a href="#" id="printButton" type="button" class="btn btn-primary" role="button">
+                            Print Prove Of Clearance
+                        </a>
+                    </div>
+                </div>
+            <?php else : ?>
+                <div class="flex-wrap gap-4 px-4 py-5 mx-auto d-flex justify-content-center col-md-10 flex-column flex-sm-row">
+                    <div class=" col-md-10">
+                        <a type="button" class="btn btn-primary" role="button" onclick="alert('You have a pending clearance to complete')">
+                            Print Prove Of Clearance
+                        </a>
+                    </div>
+                </div>
+            <?php endif ?>
+
             <div class="flex-wrap gap-4 px-4 py-5 mx-auto d-flex justify-content-center col-md-10 flex-column flex-sm-row">
+
+
                 <div class="p-4 col-md-5 shadow-1 rounded-6 bg-dark">
                     <div class="mb-4 text-white">
                         <h3>Course Clearance</h3>
@@ -70,7 +93,7 @@ if (checkStudentLogin()) {
 
                 <div class="p-4 col-md-5 shadow-2 rounded-6 bg-dark">
                     <div class="mb-4 text-white">
-                        <h3>Bursary Clearance</h3>
+                        <h3>Falculty Clearance</h3>
                     </div>
                     <div>
                         <?php if ($bursaryClearanceStatus === 'cleared') : ?>
@@ -110,7 +133,7 @@ if (checkStudentLogin()) {
 
                 <div class="p-4 col-md-5 shadow-1 rounded-6 bg-dark">
                     <div class="mb-4 text-white">
-                        <h3>Hostel Clearance</h3>
+                        <h3>Department Clearance</h3>
                     </div>
                     <div>
                         <?php if ($hostelClearanceStatus === 'cleared') : ?>
@@ -127,7 +150,7 @@ if (checkStudentLogin()) {
                             </div>
                         <?php elseif ($hostelClearanceStatus === null) : ?>
                             <div class="text-white shadow-none btn btn-warning pe-none">
-                                no hostel records found
+                                No department records found
                             </div>
                         <?php endif ?>
                     </div>
@@ -136,6 +159,27 @@ if (checkStudentLogin()) {
         </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
     </body>
+    <script>
+        document.getElementById("printButton").addEventListener("click", function() {
+            printDocument();
+        });
+
+        function printDocument() {
+            // Replace 'document-url.pdf' with the URL or path to your specific document
+            var documentUrl = './print.pdf';
+
+            // Open the document in a new window
+            var newWindow = window.open(documentUrl, '_blank');
+
+            // Add an event listener to print the document when it finishes loading
+            newWindow.onload = function() {
+                newWindow.print();
+                newWindow.onafterprint = function() {
+                    newWindow.close(); // Close the new window after printing
+                };
+            };
+        }
+    </script>
 
     </html>
 <?php

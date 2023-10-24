@@ -2,11 +2,11 @@
 
 require_once "../../../vendor/autoload.php";
 
-use App\Actions\BursaryClearanceActions;
+use App\Actions\HostelClearanceActions;
 
-if (checkClearanceOfficerLogin('bursary')) {
-    $office = 'bursary';
-    $sessions = (new BursaryClearanceActions)->getAllSessions();
+if (checkClearanceOfficerLogin('department')) {
+    $office = 'department';
+    $sessions = (new HostelClearanceActions)->getAllSessions();
 ?>
     <!DOCTYPE html>
     <html>
@@ -20,28 +20,28 @@ if (checkClearanceOfficerLogin('bursary')) {
         <!-- MDB -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
 
-        <title>AE-FUNAI Clearance Portal | Bursary Office</title>
+        <title>AE-FUNAI Clearance Portal | Department Office</title>
     </head>
 
     <body>
         <?php include "../navbar.php"; ?>
         <!-- Jumbotron -->
         <div class="p-5 text-center bg-light">
-            <h1 class="my-4 text-primary">Bursary office</h1>
+            <h1 class="my-4 text-primary">Department office</h1>
             <h5>Logged in as: <?php echo $_SESSION['clearanceOfficer'] ?? $_SESSION['adminOfficer']; ?></h5>
         </div>
         <!-- Jumbotron -->
 
         <div class="container px-4 py-5">
             <div class="p-4 text-white bg-dark">
-                <h3>Graduating Student Records</h3>
+                <h3>Department Accomodation Records</h3>
             </div>
             <div class="p-4 border border-dark">
                 <div class="gap-4 d-flex flex-column">
                     <?php foreach ($sessions as $session) : ?>
-                        <a href="view-record.php?session=<?php echo $session['session']; ?>">
+                        <a href="view-record.php?session=<?php echo $session['accomodation_session']; ?>">
                             <h4 class="p-3 bg-light">
-                                <?php echo $session['session']; ?>
+                                <?php echo $session['accomodation_session']; ?>
                             </h4>
                         </a>
                     <?php endforeach ?>
